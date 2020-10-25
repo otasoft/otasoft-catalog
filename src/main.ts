@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { catalogMicroserviceOptions } from './microservice-connection/microservice-connection';
 
-const logger = new Logger('CatalogMicroservice')
+const logger = new Logger('CatalogMicroservice');
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice(
