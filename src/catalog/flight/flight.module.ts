@@ -4,6 +4,6 @@ import { FlightService } from './flight.service';
 
 @Module({
   controllers: [FlightController],
-  providers: [FlightService]
+  providers: [FlightService],
 })
 export class FlightModule {}
