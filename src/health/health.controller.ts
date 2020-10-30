@@ -6,25 +6,19 @@ import { HealthService } from './health.service';
 export class HealthController {
     constructor(private readonly healthService: HealthService) {}
 
-    @Get('/check-auth-typeorm')
+    @Get('/check-catalog-typeorm')
     @HealthCheck()
-    checkAuthTypeorm() {
-      return this.healthService.checkAuthTypeorm();
-    }
-    
-    @Get('/check-dns')
-    @HealthCheck()
-    checkDns() {
-      return this.healthService.checkDns();
+    checkCatalogTypeorm() {
+      return this.healthService.checkCatalogTypeorm();
     }
   
-    @Get('/check-disk')
+    @Get('/check-catalog-disk')
     @HealthCheck()
     checkDisk() {
       return this.healthService.checkDisk();
     }
   
-    @Get('/check-memory')
+    @Get('/check-catalog-memory')
     @HealthCheck()
     checkMemory() {
       return this.healthService.checkMemory();
