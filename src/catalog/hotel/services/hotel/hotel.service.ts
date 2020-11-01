@@ -3,7 +3,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateHotelCommand } from '../../commands/impl/create-hotel.command';
 import { DeleteHotelCommand } from '../../commands/impl/delete-hotel.command';
 import { UpdateHotelCommand } from '../../commands/impl/update-hotel.command';
-import { HotelIdDto, CreateHotelDto, UpdateHotelDto } from '../../dto';
+import { CreateHotelDto, UpdateHotelDto } from '../../dto';
 import { TextResponseModel } from '../../models/text-response.model';
 import {
   GetSingleHotelQuery,
@@ -19,9 +19,9 @@ export class HotelService {
   ) {}
 
   async getSingleHotel(
-    HotelIdDto: HotelIdDto,
+    id: number,
   ): Promise<HotelEntity> {
-    return this.queryBus.execute(new GetSingleHotelQuery(HotelIdDto));
+    return this.queryBus.execute(new GetSingleHotelQuery(id));
   }
 
   async getAllHotels(): Promise<HotelEntity[]> {
@@ -45,8 +45,8 @@ export class HotelService {
   }
 
   async deleteHotel(
-    HotelIdDto: HotelIdDto,
+    id: number,
   ): Promise<TextResponseModel> {
-    return this.commandBus.execute(new DeleteHotelCommand(HotelIdDto));
+    return this.commandBus.execute(new DeleteHotelCommand(id));
   }
 }

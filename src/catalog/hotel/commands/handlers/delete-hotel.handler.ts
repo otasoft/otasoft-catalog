@@ -15,7 +15,7 @@ export class DeleteHotelHandler
 
   async execute(command: DeleteHotelCommand): Promise<TextResponseModel> {
     try {
-      this.hotelRepository.delete(command.hotelIdDto.id);
+      this.hotelRepository.delete(command.id);
     } catch (error) {
       throw new RpcException({
         statusCode: error.code,
@@ -24,7 +24,7 @@ export class DeleteHotelHandler
     }
 
     return {
-      response: `hotel with id #${command.hotelIdDto.id} successfuly deleted`,
+      response: `Hotel with ID #${command.id} successfuly deleted`,
     };
   }
 }

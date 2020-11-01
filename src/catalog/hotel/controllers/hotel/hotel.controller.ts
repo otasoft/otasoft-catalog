@@ -1,7 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { CreateHotelDto } from '../../dto/create-hotel.dto';
-import { HotelIdDto } from '../../dto/hotel-id.dto';
 import { UpdateHotelDto } from '../../dto/update-hotel.dto';
 import { HotelEntity } from '../../repositories/hotel.entity';
 import { HotelService } from '../../services/hotel/hotel.service';
@@ -13,9 +12,9 @@ export class HotelController {
 
   @MessagePattern({ role: 'hotel', cmd: 'getSingle' })
   async getSingleHotel(
-    HotelIdDto: HotelIdDto,
+    id: number,
   ): Promise<HotelEntity> {
-    return this.HotelService.getSingleHotel(HotelIdDto);
+    return this.HotelService.getSingleHotel(id);
   }
 
   @MessagePattern({ role: 'hotel', cmd: 'getAll' })
@@ -39,8 +38,8 @@ export class HotelController {
 
   @MessagePattern({ role: 'hotel', cmd: 'delete' })
   async deleteHotel(
-    HotelIdDto: HotelIdDto,
+    id: number,
   ): Promise<TextResponseModel> {
-    return this.HotelService.deleteHotel(HotelIdDto);
+    return this.HotelService.deleteHotel(id);
   }
 }

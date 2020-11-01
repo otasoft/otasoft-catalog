@@ -15,13 +15,13 @@ export class GetSingleHotelHandler
 
   async execute(query: GetSingleHotelQuery): Promise<HotelEntity> {
     const hotel: HotelEntity = await this.hotelRepository.findOne(
-      query.hotelIdDto.id,
+      query.id,
     );
 
     if (!hotel)
       throw new RpcException({
         statusCode: 404,
-        errorStatus: 'hotel not found',
+        errorStatus: `Hotel with ID ${query.id} not found`,
       });
 
     return hotel;
