@@ -6,8 +6,7 @@ import { CarsRepository } from '../../repositories/cars.repository';
 import { GetAllCarsQuery } from '../impl/get-all-cars.query';
 
 @QueryHandler(GetAllCarsQuery)
-export class GetAllCarsHandler
-  implements IQueryHandler<GetAllCarsQuery> {
+export class GetAllCarsHandler implements IQueryHandler<GetAllCarsQuery> {
   constructor(
     @InjectRepository(CarsRepository)
     private readonly carsRepository: CarsRepository,

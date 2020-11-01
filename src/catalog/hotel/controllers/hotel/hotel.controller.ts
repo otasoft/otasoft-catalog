@@ -11,9 +11,7 @@ export class HotelController {
   constructor(private readonly HotelService: HotelService) {}
 
   @MessagePattern({ role: 'hotel', cmd: 'getSingle' })
-  async getSingleHotel(
-    id: number,
-  ): Promise<HotelEntity> {
+  async getSingleHotel(id: number): Promise<HotelEntity> {
     return this.HotelService.getSingleHotel(id);
   }
 
@@ -23,23 +21,17 @@ export class HotelController {
   }
 
   @MessagePattern({ role: 'hotel', cmd: 'create' })
-  async createHotel(
-    createHotelDto: CreateHotelDto,
-  ): Promise<HotelEntity> {
+  async createHotel(createHotelDto: CreateHotelDto): Promise<HotelEntity> {
     return this.HotelService.createHotel(createHotelDto);
   }
 
   @MessagePattern({ role: 'hotel', cmd: 'update' })
-  async updateHotel(
-    updateHotelDto: UpdateHotelDto,
-  ): Promise<HotelEntity> {
+  async updateHotel(updateHotelDto: UpdateHotelDto): Promise<HotelEntity> {
     return this.HotelService.updateHotel(updateHotelDto);
   }
 
   @MessagePattern({ role: 'hotel', cmd: 'delete' })
-  async deleteHotel(
-    id: number,
-  ): Promise<TextResponseModel> {
+  async deleteHotel(id: number): Promise<TextResponseModel> {
     return this.HotelService.deleteHotel(id);
   }
 }

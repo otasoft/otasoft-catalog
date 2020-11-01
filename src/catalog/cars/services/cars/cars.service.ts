@@ -5,10 +5,7 @@ import { DeleteCarsCommand } from '../../commands/impl/delete-cars.command';
 import { UpdateCarsCommand } from '../../commands/impl/update-cars.command';
 import { CarsIdDto, CreateCarsDto, UpdateCarsDto } from '../../dto';
 import { TextResponseModel } from '../../models/text-response.model';
-import {
-  GetSingleCarQuery,
-  GetAllCarsQuery,
-} from '../../queries/impl';
+import { GetSingleCarQuery, GetAllCarsQuery } from '../../queries/impl';
 import { CarsEntity } from '../../repositories/cars.entity';
 
 @Injectable()
@@ -18,9 +15,7 @@ export class CarsService {
     private readonly commandBus: CommandBus,
   ) {}
 
-  async getSingleCars(
-    id: number,
-  ): Promise<CarsEntity> {
+  async getSingleCars(id: number): Promise<CarsEntity> {
     return this.queryBus.execute(new GetSingleCarQuery(id));
   }
 
@@ -28,25 +23,15 @@ export class CarsService {
     return this.queryBus.execute(new GetAllCarsQuery());
   }
 
-  async createCars(
-    createCarsDto: CreateCarsDto,
-  ): Promise<CarsEntity> {
-    return this.commandBus.execute(
-      new CreateCarsCommand(createCarsDto),
-    );
+  async createCars(createCarsDto: CreateCarsDto): Promise<CarsEntity> {
+    return this.commandBus.execute(new CreateCarsCommand(createCarsDto));
   }
 
-  async updateCars(
-    updateCarsDto: UpdateCarsDto,
-  ): Promise<CarsEntity> {
-    return this.commandBus.execute(
-      new UpdateCarsCommand(updateCarsDto),
-    );
+  async updateCars(updateCarsDto: UpdateCarsDto): Promise<CarsEntity> {
+    return this.commandBus.execute(new UpdateCarsCommand(updateCarsDto));
   }
 
-  async deleteCars(
-    id: number,
-  ): Promise<TextResponseModel> {
+  async deleteCars(id: number): Promise<TextResponseModel> {
     return this.commandBus.execute(new DeleteCarsCommand(id));
   }
 }

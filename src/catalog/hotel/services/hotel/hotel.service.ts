@@ -5,10 +5,7 @@ import { DeleteHotelCommand } from '../../commands/impl/delete-hotel.command';
 import { UpdateHotelCommand } from '../../commands/impl/update-hotel.command';
 import { CreateHotelDto, UpdateHotelDto } from '../../dto';
 import { TextResponseModel } from '../../models/text-response.model';
-import {
-  GetSingleHotelQuery,
-  GetAllHotelsQuery,
-} from '../../queries/impl';
+import { GetSingleHotelQuery, GetAllHotelsQuery } from '../../queries/impl';
 import { HotelEntity } from '../../repositories/hotel.entity';
 
 @Injectable()
@@ -18,9 +15,7 @@ export class HotelService {
     private readonly commandBus: CommandBus,
   ) {}
 
-  async getSingleHotel(
-    id: number,
-  ): Promise<HotelEntity> {
+  async getSingleHotel(id: number): Promise<HotelEntity> {
     return this.queryBus.execute(new GetSingleHotelQuery(id));
   }
 
@@ -28,25 +23,15 @@ export class HotelService {
     return this.queryBus.execute(new GetAllHotelsQuery());
   }
 
-  async createHotel(
-    createHotelDto: CreateHotelDto,
-  ): Promise<HotelEntity> {
-    return this.commandBus.execute(
-      new CreateHotelCommand(createHotelDto),
-    );
+  async createHotel(createHotelDto: CreateHotelDto): Promise<HotelEntity> {
+    return this.commandBus.execute(new CreateHotelCommand(createHotelDto));
   }
 
-  async updateHotel(
-    updateHotelDto: UpdateHotelDto,
-  ): Promise<HotelEntity> {
-    return this.commandBus.execute(
-      new UpdateHotelCommand(updateHotelDto),
-    );
+  async updateHotel(updateHotelDto: UpdateHotelDto): Promise<HotelEntity> {
+    return this.commandBus.execute(new UpdateHotelCommand(updateHotelDto));
   }
 
-  async deleteHotel(
-    id: number,
-  ): Promise<TextResponseModel> {
+  async deleteHotel(id: number): Promise<TextResponseModel> {
     return this.commandBus.execute(new DeleteHotelCommand(id));
   }
 }

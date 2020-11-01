@@ -6,8 +6,7 @@ import { CarsRepository } from '../../repositories/cars.repository';
 import { UpdateCarsCommand } from '../impl/update-cars.command';
 
 @CommandHandler(UpdateCarsCommand)
-export class UpdateCarsHandler
-  implements ICommandHandler<UpdateCarsCommand> {
+export class UpdateCarsHandler implements ICommandHandler<UpdateCarsCommand> {
   constructor(
     @InjectRepository(CarsRepository)
     private readonly carsRepository: CarsRepository,
@@ -19,8 +18,7 @@ export class UpdateCarsHandler
     );
 
     cars.name = command.updateCarsDto.updateCarsDto.name;
-    cars.description =
-      command.updateCarsDto.updateCarsDto.description;
+    cars.description = command.updateCarsDto.updateCarsDto.description;
 
     try {
       cars.save();

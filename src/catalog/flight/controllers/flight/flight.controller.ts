@@ -12,9 +12,7 @@ export class FlightController {
   constructor(private readonly flightService: FlightService) {}
 
   @MessagePattern({ role: 'flight', cmd: 'getSingle' })
-  async getSingleFlight(
-    id: number,
-  ): Promise<FlightEntity> {
+  async getSingleFlight(id: number): Promise<FlightEntity> {
     return this.flightService.getSingleFlight(id);
   }
 
@@ -24,23 +22,17 @@ export class FlightController {
   }
 
   @MessagePattern({ role: 'flight', cmd: 'create' })
-  async createFlight(
-    createFlightDto: CreateFlightDto,
-  ): Promise<FlightEntity> {
+  async createFlight(createFlightDto: CreateFlightDto): Promise<FlightEntity> {
     return this.flightService.createFlight(createFlightDto);
   }
 
   @MessagePattern({ role: 'flight', cmd: 'update' })
-  async updateFlight(
-    updateFlightDto: UpdateFlightDto,
-  ): Promise<FlightEntity> {
+  async updateFlight(updateFlightDto: UpdateFlightDto): Promise<FlightEntity> {
     return this.flightService.updateFlight(updateFlightDto);
   }
 
   @MessagePattern({ role: 'flight', cmd: 'delete' })
-  async deleteFlight(
-    id: number,
-  ): Promise<TextResponseModel> {
+  async deleteFlight(id: number): Promise<TextResponseModel> {
     return this.flightService.deleteFlight(id);
   }
 }

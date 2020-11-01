@@ -9,7 +9,10 @@ import { HotelRepository } from './repositories/hotel.repository';
 import { HotelService } from './services/hotel/hotel.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([HotelRepository, HotelEntity]), CqrsModule],
+  imports: [
+    TypeOrmModule.forFeature([HotelRepository, HotelEntity]),
+    CqrsModule,
+  ],
   controllers: [HotelController],
   providers: [HotelService, ...CommandHandlers, ...QueryHandlers],
 })

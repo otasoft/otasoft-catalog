@@ -6,8 +6,7 @@ import { HotelRepository } from '../../repositories/hotel.repository';
 import { DeleteHotelCommand } from '../impl/delete-hotel.command';
 
 @CommandHandler(DeleteHotelCommand)
-export class DeleteHotelHandler
-  implements ICommandHandler<DeleteHotelCommand> {
+export class DeleteHotelHandler implements ICommandHandler<DeleteHotelCommand> {
   constructor(
     @InjectRepository(HotelRepository)
     private readonly hotelRepository: HotelRepository,

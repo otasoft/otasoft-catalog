@@ -12,9 +12,7 @@ export class ActivityController {
   constructor(private readonly activityService: ActivityService) {}
 
   @MessagePattern({ role: 'activity', cmd: 'getSingle' })
-  async getSingleActivity(
-    id: number,
-  ): Promise<ActivityEntity> {
+  async getSingleActivity(id: number): Promise<ActivityEntity> {
     return this.activityService.getSingleActivity(id);
   }
 
@@ -38,9 +36,7 @@ export class ActivityController {
   }
 
   @MessagePattern({ role: 'activity', cmd: 'delete' })
-  async deleteActivity(
-    id: number,
-  ): Promise<TextResponseModel> {
+  async deleteActivity(id: number): Promise<TextResponseModel> {
     return this.activityService.deleteActivity(id);
   }
 }

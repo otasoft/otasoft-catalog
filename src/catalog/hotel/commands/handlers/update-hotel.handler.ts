@@ -6,8 +6,7 @@ import { HotelRepository } from '../../repositories/hotel.repository';
 import { UpdateHotelCommand } from '../impl/update-hotel.command';
 
 @CommandHandler(UpdateHotelCommand)
-export class UpdateHotelHandler
-  implements ICommandHandler<UpdateHotelCommand> {
+export class UpdateHotelHandler implements ICommandHandler<UpdateHotelCommand> {
   constructor(
     @InjectRepository(HotelRepository)
     private readonly hotelRepository: HotelRepository,
@@ -19,8 +18,7 @@ export class UpdateHotelHandler
     );
 
     hotel.name = command.updateHotelDto.updateHotelDto.name;
-    hotel.description =
-      command.updateHotelDto.updateHotelDto.description;
+    hotel.description = command.updateHotelDto.updateHotelDto.description;
 
     try {
       hotel.save();

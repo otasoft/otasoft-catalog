@@ -6,8 +6,7 @@ import { CarsRepository } from '../../repositories/cars.repository';
 import { DeleteCarsCommand } from '../impl/delete-cars.command';
 
 @CommandHandler(DeleteCarsCommand)
-export class DeleteCarsHandler
-  implements ICommandHandler<DeleteCarsCommand> {
+export class DeleteCarsHandler implements ICommandHandler<DeleteCarsCommand> {
   constructor(
     @InjectRepository(CarsRepository)
     private readonly carsRepository: CarsRepository,

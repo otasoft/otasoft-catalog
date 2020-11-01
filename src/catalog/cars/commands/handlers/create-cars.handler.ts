@@ -6,8 +6,7 @@ import { CarsRepository } from '../../repositories/cars.repository';
 import { CreateCarsCommand } from '../impl/create-cars.command';
 
 @CommandHandler(CreateCarsCommand)
-export class CreateCarsHandler
-  implements ICommandHandler<CreateCarsCommand> {
+export class CreateCarsHandler implements ICommandHandler<CreateCarsCommand> {
   constructor(
     @InjectRepository(CarsRepository)
     private readonly carsRepository: CarsRepository,

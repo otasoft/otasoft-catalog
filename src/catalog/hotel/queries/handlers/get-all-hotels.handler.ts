@@ -6,8 +6,7 @@ import { HotelRepository } from '../../repositories/hotel.repository';
 import { GetAllHotelsQuery } from '../impl/get-all-hotels.query';
 
 @QueryHandler(GetAllHotelsQuery)
-export class GetAllHotelsHandler
-  implements IQueryHandler<GetAllHotelsQuery> {
+export class GetAllHotelsHandler implements IQueryHandler<GetAllHotelsQuery> {
   constructor(
     @InjectRepository(HotelRepository)
     private readonly hotelRepository: HotelRepository,

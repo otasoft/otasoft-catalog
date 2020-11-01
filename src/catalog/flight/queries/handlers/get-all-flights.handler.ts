@@ -6,8 +6,7 @@ import { FlightRepository } from '../../repositories/flight.repository';
 import { GetAllFlightsQuery } from '../impl/get-all-flights.query';
 
 @QueryHandler(GetAllFlightsQuery)
-export class GetAllFlightsHandler
-  implements IQueryHandler<GetAllFlightsQuery> {
+export class GetAllFlightsHandler implements IQueryHandler<GetAllFlightsQuery> {
   constructor(
     @InjectRepository(FlightRepository)
     private readonly flightRepository: FlightRepository,

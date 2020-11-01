@@ -14,9 +14,7 @@ export class GetSingleFlightHandler
   ) {}
 
   async execute(query: GetSingleFlightQuery): Promise<FlightEntity> {
-    const flight: FlightEntity = await this.flightRepository.findOne(
-      query.id,
-    );
+    const flight: FlightEntity = await this.flightRepository.findOne(query.id);
 
     if (!flight)
       throw new RpcException({

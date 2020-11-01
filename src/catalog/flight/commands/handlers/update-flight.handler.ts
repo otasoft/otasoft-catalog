@@ -19,8 +19,7 @@ export class UpdateFlightHandler
     );
 
     flight.name = command.updateFlightDto.updateFlightDto.name;
-    flight.description =
-      command.updateFlightDto.updateFlightDto.description;
+    flight.description = command.updateFlightDto.updateFlightDto.description;
 
     try {
       flight.save();

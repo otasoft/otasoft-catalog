@@ -18,9 +18,7 @@ export class ActivityService {
     private readonly commandBus: CommandBus,
   ) {}
 
-  async getSingleActivity(
-    id: number,
-  ): Promise<ActivityEntity> {
+  async getSingleActivity(id: number): Promise<ActivityEntity> {
     return this.queryBus.execute(new GetSingleActivityQuery(id));
   }
 
@@ -44,9 +42,7 @@ export class ActivityService {
     );
   }
 
-  async deleteActivity(
-    id: number,
-  ): Promise<TextResponseModel> {
+  async deleteActivity(id: number): Promise<TextResponseModel> {
     return this.commandBus.execute(new DeleteActivityCommand(id));
   }
 }

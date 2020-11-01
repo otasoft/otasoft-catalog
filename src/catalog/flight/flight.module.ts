@@ -9,7 +9,10 @@ import { FlightRepository } from './repositories/flight.repository';
 import { FlightService } from './services/flight/flight.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([FlightRepository, FlightEntity]), CqrsModule],
+  imports: [
+    TypeOrmModule.forFeature([FlightRepository, FlightEntity]),
+    CqrsModule,
+  ],
   controllers: [FlightController],
   providers: [FlightService, ...CommandHandlers, ...QueryHandlers],
 })

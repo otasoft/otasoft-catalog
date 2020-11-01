@@ -9,7 +9,10 @@ import { ActivityRepository } from './repositories/activity.repository';
 import { ActivityService } from './services/activity/activity.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ActivityRepository, ActivityEntity]), CqrsModule],
+  imports: [
+    TypeOrmModule.forFeature([ActivityRepository, ActivityEntity]),
+    CqrsModule,
+  ],
   controllers: [ActivityController],
   providers: [ActivityService, ...CommandHandlers, ...QueryHandlers],
 })
