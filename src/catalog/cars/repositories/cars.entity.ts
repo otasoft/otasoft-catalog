@@ -1,7 +1,4 @@
-
-import { BaseEntity, Entity } from "typeorm";
+import { BaseEntity, Entity } from 'typeorm';
 
 @Entity()
-export class CarsEntity extends BaseEntity {
-
-}
+export class CarsEntity extends BaseEntity {}
