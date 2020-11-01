@@ -9,38 +9,38 @@ import { TextResponseModel } from '../../models/text-response.model';
 
 @Controller()
 export class CarsController {
-  constructor(private readonly CarsService: CarsService) {}
+  constructor(private readonly carsService: CarsService) {}
 
   @MessagePattern({ role: 'cars', cmd: 'getSingle' })
   async getSingleCars(
-    CarsIdDto: CarsIdDto,
+    id: number,
   ): Promise<CarsEntity> {
-    return this.CarsService.getSingleCars(CarsIdDto);
+    return this.carsService.getSingleCars(id);
   }
 
   @MessagePattern({ role: 'cars', cmd: 'getAll' })
-  async getAllActivities(): Promise<CarsEntity[]> {
-    return this.CarsService.getAllActivities();
+  async getAllACars(): Promise<CarsEntity[]> {
+    return this.carsService.getAllCars();
   }
 
   @MessagePattern({ role: 'cars', cmd: 'create' })
   async createCars(
     createCarsDto: CreateCarsDto,
   ): Promise<CarsEntity> {
-    return this.CarsService.createCars(createCarsDto);
+    return this.carsService.createCars(createCarsDto);
   }
 
   @MessagePattern({ role: 'cars', cmd: 'update' })
   async updateCars(
     updateCarsDto: UpdateCarsDto,
   ): Promise<CarsEntity> {
-    return this.CarsService.updateCars(updateCarsDto);
+    return this.carsService.updateCars(updateCarsDto);
   }
 
   @MessagePattern({ role: 'cars', cmd: 'delete' })
   async deleteCars(
-    CarsIdDto: CarsIdDto,
+    id: number
   ): Promise<TextResponseModel> {
-    return this.CarsService.deleteCars(CarsIdDto);
+    return this.carsService.deleteCars(id);
   }
 }

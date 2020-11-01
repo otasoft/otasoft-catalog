@@ -1,5 +1,5 @@
-import { CarIdDto } from "../../dto";
+import { CarsIdDto } from "../../dto";
 
 export class GetSingleCarQuery {
-  constructor(public readonly carIdDto: CarIdDto) {}
+  constructor(public readonly id: number) {}
 }

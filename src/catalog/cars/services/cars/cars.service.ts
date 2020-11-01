@@ -19,9 +19,9 @@ export class CarsService {
   ) {}
 
   async getSingleCars(
-    CarsIdDto: CarsIdDto,
+    id: number,
   ): Promise<CarsEntity> {
-    return this.queryBus.execute(new GetSingleCarQuery(CarsIdDto));
+    return this.queryBus.execute(new GetSingleCarQuery(id));
   }
 
   async getAllCars(): Promise<CarsEntity[]> {
@@ -45,8 +45,8 @@ export class CarsService {
   }
 
   async deleteCars(
-    CarsIdDto: CarsIdDto,
+    id: number,
   ): Promise<TextResponseModel> {
-    return this.commandBus.execute(new DeleteCarsCommand(CarsIdDto));
+    return this.commandBus.execute(new DeleteCarsCommand(id));
   }
 }

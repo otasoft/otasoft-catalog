@@ -1,29 +1,26 @@
+import { InternalServerErrorException } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ActivityEntity } from '../../repositories/activity.entity';
-import { ActivityRepository } from '../../repositories/activity.repository';
-import { GetSingleActivityQuery } from '../impl';
+import { CarsEntity } from '../../repositories/cars.entity';
+import { CarsRepository } from '../../repositories/cars.repository';
+import { GetSingleCarQuery } from '../impl';
 
-@QueryHandler(GetSingleActivityQuery)
-export class GetSingleActivityHandler
-  implements IQueryHandler<GetSingleActivityQuery> {
+@QueryHandler(GetSingleCarQuery)
+export class GetSingleCarsHandler
+  implements IQueryHandler<GetSingleCarQuery> {
   constructor(
-    @InjectRepository(ActivityRepository)
-    private readonly activityRepository: ActivityRepository,
+    @InjectRepository(CarsRepository)
+    private readonly carsRepository: CarsRepository,
   ) {}
 
-  async execute(query: GetSingleActivityQuery): Promise<ActivityEntity> {
-    const activity: ActivityEntity = await this.activityRepository.findOne(
-      query.activityIdDto.id,
+  async execute(query: GetSingleCarQuery): Promise<CarsEntity> {
+    const car: CarsEntity = await this.carsRepository.findOne(
+      query.id,
     );
 
-    if (!activity)
-      throw new RpcException({
-        statusCode: 404,
-        errorStatus: 'Activity not found',
-      });
+    if (!car) throw new RpcException({ statusCode: 404, errorStatus: `Car with ID ${query.id} not found` });
 
-    return activity;
+    return car;
   }
 }

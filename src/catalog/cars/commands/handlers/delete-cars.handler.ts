@@ -15,7 +15,7 @@ export class DeleteCarsHandler
 
   async execute(command: DeleteCarsCommand): Promise<TextResponseModel> {
     try {
-      this.carsRepository.delete(command.carsIdDto.id);
+      this.carsRepository.delete(command.id);
     } catch (error) {
       throw new RpcException({
         statusCode: error.code,
@@ -24,7 +24,7 @@ export class DeleteCarsHandler
     }
 
     return {
-      response: `cars with id #${command.carsIdDto.id} successfuly deleted`,
+      response: `cars with id #${command.id} successfuly deleted`,
     };
   }
 }

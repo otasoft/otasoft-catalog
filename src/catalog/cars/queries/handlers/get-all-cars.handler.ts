@@ -6,7 +6,7 @@ import { CarsRepository } from '../../repositories/cars.repository';
 import { GetAllCarsQuery } from '../impl/get-all-cars.query';
 
 @QueryHandler(GetAllCarsQuery)
-export class GetAllActivitiesHandler
+export class GetAllCarsHandler
   implements IQueryHandler<GetAllCarsQuery> {
   constructor(
     @InjectRepository(CarsRepository)
@@ -15,14 +15,14 @@ export class GetAllActivitiesHandler
 
   // Currently query is not used, but in the future, requesting all activities will have some params like pagination, order, etc.
   async execute(query: GetAllCarsQuery): Promise<CarsEntity[]> {
-    const activities: CarsEntity[] = await this.carsRepository.find();
+    const cars: CarsEntity[] = await this.carsRepository.find();
 
-    if (!activities.length)
+    if (!cars.length)
       throw new RpcException({
         statusCode: 404,
-        errorStatus: 'Activities not found',
+        errorStatus: 'Cars not found',
       });
 
-    return activities;
+    return cars;
   }
 }

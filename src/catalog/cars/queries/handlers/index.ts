@@ -1,7 +1,7 @@
-import { GetAllActivitiesHandler } from './get-all-cars.handler';
-import { GetSingleActivityHandler } from './get-single-car.handler';
+import { GetAllCarsHandler } from './get-all-cars.handler';
+import { GetSingleCarsHandler } from './get-single-car.handler';
 
 export const QueryHandlers = [
-  GetSingleActivityHandler,
-  GetAllActivitiesHandler,
+  GetSingleCarsHandler,
+  GetAllCarsHandler,
 ];
