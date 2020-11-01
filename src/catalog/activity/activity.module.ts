@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ActivityController } from './activity.controller';
-import { ActivityService } from './activity.service';
+import { CqrsModule } from '@nestjs/cqrs';
+import { CommandHandlers } from './commands/handlers';
+import { ActivityController } from './controllers/activity/activity.controller';
+import { QueryHandlers } from './queries/handlers';
+import { ActivityService } from './services/activity/activity.service';
 
 @Module({
+  imports: [CqrsModule],
   controllers: [ActivityController],
-  providers: [ActivityService],
+  providers: [ActivityService, ...CommandHandlers, ...QueryHandlers],
 })
 export class ActivityModule {}
