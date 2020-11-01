@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { HotelController } from './hotel.controller';
-import { HotelService } from './hotel.service';
+import { HotelController } from './controllers/hotel/hotel.controller';
+import { HotelService } from './services/hotel/hotel.service';
 
 @Module({
   controllers: [HotelController],
