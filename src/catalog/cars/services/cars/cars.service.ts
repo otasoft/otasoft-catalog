@@ -24,7 +24,7 @@ export class CarsService {
     return this.queryBus.execute(new GetSingleCarQuery(CarsIdDto));
   }
 
-  async getAllActivities(): Promise<CarsEntity[]> {
+  async getAllCars(): Promise<CarsEntity[]> {
     return this.queryBus.execute(new GetAllCarsQuery());
   }
 
