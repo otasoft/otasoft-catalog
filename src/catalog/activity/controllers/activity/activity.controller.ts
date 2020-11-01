@@ -13,9 +13,9 @@ export class ActivityController {
 
   @MessagePattern({ role: 'activity', cmd: 'getSingle' })
   async getSingleActivity(
-    activityIdDto: ActivityIdDto,
+    id: number,
   ): Promise<ActivityEntity> {
-    return this.activityService.getSingleActivity(activityIdDto);
+    return this.activityService.getSingleActivity(id);
   }
 
   @MessagePattern({ role: 'activity', cmd: 'getAll' })
@@ -39,8 +39,8 @@ export class ActivityController {
 
   @MessagePattern({ role: 'activity', cmd: 'delete' })
   async deleteActivity(
-    activityIdDto: ActivityIdDto,
+    id: number,
   ): Promise<TextResponseModel> {
-    return this.activityService.deleteActivity(activityIdDto);
+    return this.activityService.deleteActivity(id);
   }
 }

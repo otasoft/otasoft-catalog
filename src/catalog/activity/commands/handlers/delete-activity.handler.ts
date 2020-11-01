@@ -15,7 +15,7 @@ export class DeleteActivityHandler
 
   async execute(command: DeleteActivityCommand): Promise<TextResponseModel> {
     try {
-      this.activityRepository.delete(command.activityIdDto.id);
+      this.activityRepository.delete(command.id);
     } catch (error) {
       throw new RpcException({
         statusCode: error.code,
@@ -24,7 +24,7 @@ export class DeleteActivityHandler
     }
 
     return {
-      response: `Activity with id #${command.activityIdDto.id} successfuly deleted`,
+      response: `Activity with id #${command.id} successfuly deleted`,
     };
   }
 }

@@ -1,5 +1,3 @@
-import { ActivityIdDto } from '../../dto';
-
 export class DeleteActivityCommand {
-  constructor(public readonly activityIdDto: ActivityIdDto) {}
+  constructor(public readonly id: number) {}
 }

@@ -15,13 +15,13 @@ export class GetSingleActivityHandler
 
   async execute(query: GetSingleActivityQuery): Promise<ActivityEntity> {
     const activity: ActivityEntity = await this.activityRepository.findOne(
-      query.activityIdDto.id,
+      query.id,
     );
 
     if (!activity)
       throw new RpcException({
         statusCode: 404,
-        errorStatus: 'Activity not found',
+        errorStatus: `Activity with ID ${query.id} not found`,
       });
 
     return activity;
