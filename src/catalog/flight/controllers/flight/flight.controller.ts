@@ -13,9 +13,9 @@ export class FlightController {
 
   @MessagePattern({ role: 'flight', cmd: 'getSingle' })
   async getSingleFlight(
-    FlightIdDto: FlightIdDto,
+    id: number,
   ): Promise<FlightEntity> {
-    return this.flightService.getSingleFlight(FlightIdDto);
+    return this.flightService.getSingleFlight(id);
   }
 
   @MessagePattern({ role: 'flight', cmd: 'getAll' })
@@ -39,8 +39,8 @@ export class FlightController {
 
   @MessagePattern({ role: 'flight', cmd: 'delete' })
   async deleteFlight(
-    FlightIdDto: FlightIdDto,
+    id: number,
   ): Promise<TextResponseModel> {
-    return this.flightService.deleteFlight(FlightIdDto);
+    return this.flightService.deleteFlight(id);
   }
 }

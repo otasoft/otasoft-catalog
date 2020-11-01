@@ -10,11 +10,11 @@ export class CreateFlightHandler
   implements ICommandHandler<CreateFlightCommand> {
   constructor(
     @InjectRepository(FlightRepository)
-    private readonly FlightRepository: FlightRepository,
+    private readonly flightRepository: FlightRepository,
   ) {}
 
   async execute(command: CreateFlightCommand): Promise<FlightEntity> {
-    const flight: FlightEntity = await this.FlightRepository.create();
+    const flight: FlightEntity = await this.flightRepository.create();
 
     flight.name = command.createFlightDto.name;
     flight.description = command.createFlightDto.description;

@@ -10,12 +10,12 @@ export class GetAllFlightsHandler
   implements IQueryHandler<GetAllFlightsQuery> {
   constructor(
     @InjectRepository(FlightRepository)
-    private readonly FlightRepository: FlightRepository,
+    private readonly flightRepository: FlightRepository,
   ) {}
 
   // Currently query is not used, but in the future, requesting all Flights will have some params like pagination, order, etc.
   async execute(query: GetAllFlightsQuery): Promise<FlightEntity[]> {
-    const flights: FlightEntity[] = await this.FlightRepository.find();
+    const flights: FlightEntity[] = await this.flightRepository.find();
 
     if (!flights.length)
       throw new RpcException({

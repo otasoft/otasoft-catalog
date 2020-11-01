@@ -19,9 +19,9 @@ export class FlightService {
   ) {}
 
   async getSingleFlight(
-    FlightIdDto: FlightIdDto,
+    id: number,
   ): Promise<FlightEntity> {
-    return this.queryBus.execute(new GetSingleFlightQuery(FlightIdDto));
+    return this.queryBus.execute(new GetSingleFlightQuery(id));
   }
 
   async getAllFlights(): Promise<FlightEntity[]> {
@@ -45,8 +45,8 @@ export class FlightService {
   }
 
   async deleteFlight(
-    FlightIdDto: FlightIdDto,
+    id: number,
   ): Promise<TextResponseModel> {
-    return this.commandBus.execute(new DeleteFlightCommand(FlightIdDto));
+    return this.commandBus.execute(new DeleteFlightCommand(id));
   }
 }

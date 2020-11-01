@@ -15,7 +15,7 @@ export class DeleteFlightHandler
 
   async execute(command: DeleteFlightCommand): Promise<TextResponseModel> {
     try {
-      this.flightRepository.delete(command.flightIdDto.id);
+      this.flightRepository.delete(command.id);
     } catch (error) {
       throw new RpcException({
         statusCode: error.code,
@@ -24,7 +24,7 @@ export class DeleteFlightHandler
     }
 
     return {
-      response: `flight with id #${command.flightIdDto.id} successfuly deleted`,
+      response: `Flight with id #${command.id} successfuly deleted`,
     };
   }
 }

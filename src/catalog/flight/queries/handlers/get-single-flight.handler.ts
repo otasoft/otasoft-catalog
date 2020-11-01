@@ -10,18 +10,18 @@ export class GetSingleFlightHandler
   implements IQueryHandler<GetSingleFlightQuery> {
   constructor(
     @InjectRepository(FlightRepository)
-    private readonly FlightRepository: FlightRepository,
+    private readonly flightRepository: FlightRepository,
   ) {}
 
   async execute(query: GetSingleFlightQuery): Promise<FlightEntity> {
-    const flight: FlightEntity = await this.FlightRepository.findOne(
-      query.FlightIdDto.id,
+    const flight: FlightEntity = await this.flightRepository.findOne(
+      query.id,
     );
 
     if (!flight)
       throw new RpcException({
         statusCode: 404,
-        errorStatus: 'flight not found',
+        errorStatus: `Flight with ID ${query.id} not found`,
       });
 
     return flight;
