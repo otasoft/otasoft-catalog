@@ -32,6 +32,16 @@ services:
     networks:
       - otasoft-catalog-network
 
+  kibana:
+    image: docker.elastic.co/kibana/kibana:${ELK_VERSION}
+    environment:
+      SERVER_NAME: ${KIBANA_SERVER_NAME}
+      ELASTICSEARCH_URL: http://elasticsearch:${ELASTICSEARCH_PORT}/
+    ports:
+      - ${KIBANA_PORT}:5601
+    networks:
+      - otasoft-catalog-network
+
 networks: 
   otasoft-catalog-network:
     driver: bridge
