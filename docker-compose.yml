@@ -10,27 +10,25 @@ services:
       - otasoft-catalog-network
 
   elasticsearch:
-    build:
-      context: elk/elasticsearch/
-      args:
-        ELK_VERSION: ${ELK_VERSION}
-    volumes:
-      - type: bind
-        source: ./elk/elasticsearch/config/elasticsearch.yml
-        target: /usr/share/elasticsearch/config/elasticsearch.yml
-        read_only: true
-      - type: volume
-        source: elasticsearch
-        target: /usr/share/elasticsearch/data
-    ports:
-      - "9200:9200"
-      - "9300:9300"
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
     environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
+      - node.name=es01
+      - cluster.name=${ELASTICSEARCH_CLUSTER_NAME}
+      - network.host=${ELASTICSEARCH_NETWORK_HOST}
+      - http.port=${ELASTICSEARCH_PORT}
       # Use single node discovery in order to disable production mode and avoid bootstrap checks.
       # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
-      discovery.type: single-node
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    ports:
+      - ${ELASTICSEARCH_PORT}:9200
     networks:
       - otasoft-catalog-network
 
@@ -39,4 +37,4 @@ networks:
     driver: bridge
 
 volumes:
-  elasticsearch:
+  es-data:
