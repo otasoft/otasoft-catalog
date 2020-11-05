@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ErrorValidationService } from 'src/utils/error-validation/error-validation.service';
 import { CommandHandlers } from './commands/handlers';
 import { ActivityController } from './controllers/activity/activity.controller';
 import { QueryHandlers } from './queries/handlers';
@@ -14,6 +15,6 @@ import { ActivityService } from './services/activity/activity.service';
     CqrsModule,
   ],
   controllers: [ActivityController],
-  providers: [ActivityService, ...CommandHandlers, ...QueryHandlers],
+  providers: [ActivityService, ...CommandHandlers, ...QueryHandlers, ErrorValidationService],
 })
 export class ActivityModule {}

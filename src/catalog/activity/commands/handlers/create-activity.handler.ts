@@ -1,6 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ErrorValidationService } from '../../../../utils/error-validation/error-validation.service';
 import { ActivityEntity } from '../../repositories/activity.entity';
 import { ActivityRepository } from '../../repositories/activity.repository';
 import { CreateActivityCommand } from '../impl/create-activity.command';
@@ -11,6 +12,7 @@ export class CreateActivityHandler
   constructor(
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
+    private readonly errorValidationService: ErrorValidationService,
   ) {}
 
   async execute(command: CreateActivityCommand): Promise<ActivityEntity> {
@@ -20,11 +22,12 @@ export class CreateActivityHandler
     activity.description = command.createActivityDto.description;
 
     try {
-      activity.save();
+      await activity.save();
     } catch (error) {
+      const errorObject = this.errorValidationService.validateError(error.code);
       throw new RpcException({
-        statusCode: error.code,
-        errorStatus: 'Error while creating an activity',
+        statusCode: errorObject.code,
+        errorStatus: errorObject.message,
       });
     }
 

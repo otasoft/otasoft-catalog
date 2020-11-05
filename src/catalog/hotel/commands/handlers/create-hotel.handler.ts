@@ -1,6 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ErrorValidationService } from 'src/utils/error-validation/error-validation.service';
 import { HotelEntity } from '../../repositories/hotel.entity';
 import { HotelRepository } from '../../repositories/hotel.repository';
 import { CreateHotelCommand } from '../impl/create-hotel.command';
@@ -10,6 +11,7 @@ export class CreateHotelHandler implements ICommandHandler<CreateHotelCommand> {
   constructor(
     @InjectRepository(HotelRepository)
     private readonly hotelRepository: HotelRepository,
+    private readonly errorValidationService: ErrorValidationService,
   ) {}
 
   async execute(command: CreateHotelCommand): Promise<HotelEntity> {
@@ -19,11 +21,12 @@ export class CreateHotelHandler implements ICommandHandler<CreateHotelCommand> {
     hotel.description = command.createHotelDto.description;
 
     try {
-      hotel.save();
+      await hotel.save();
     } catch (error) {
+      const errorObject = this.errorValidationService.validateError(error.code);
       throw new RpcException({
-        statusCode: error.code,
-        errorStatus: 'Error while creating an hotel',
+        statusCode: errorObject.code,
+        errorStatus: errorObject.message,
       });
     }
 
