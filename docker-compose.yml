@@ -7,18 +7,18 @@ services:
     env_file: 
       - .env
     networks:
-      - otasoft-catalog-network
+      - db
 
-  elasticsearch:
+  es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
     environment:
       - node.name=es01
       - cluster.name=${ELASTICSEARCH_CLUSTER_NAME}
       - network.host=${ELASTICSEARCH_NETWORK_HOST}
       - http.port=${ELASTICSEARCH_PORT}
-      # Use single node discovery in order to disable production mode and avoid bootstrap checks.
-      # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
-      - discovery.type=single-node
+      - discovery.seed_hosts=es02,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD}
     ulimits:
@@ -26,12 +26,52 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - es-data:/usr/share/elasticsearch/data
+      - es-data01:/usr/share/elasticsearch/data
     ports:
       - ${ELASTICSEARCH_PORT}:9200
     networks:
-      - otasoft-catalog-network
-      - ingress
+      - elastic
+      - proxy
+
+  es02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
+    environment:
+      - node.name=es02
+      - cluster.name=${ELASTICSEARCH_CLUSTER_NAME}
+      - network.host=${ELASTICSEARCH_NETWORK_HOST}
+      - http.port=${ELASTICSEARCH_PORT}
+      - discovery.seed_hosts=es01,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es-data02:/usr/share/elasticsearch/data
+    networks:
+      - elastic
+
+  es03:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
+    environment:
+      - node.name=es03
+      - cluster.name=${ELASTICSEARCH_CLUSTER_NAME}
+      - discovery.seed_hosts=es01,es02
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es-data03:/usr/share/elasticsearch/data
+    networks:
+      - elastic
 
   kibana:
     image: docker.elastic.co/kibana/kibana:${ELK_VERSION}
@@ -41,8 +81,8 @@ services:
     ports:
       - ${KIBANA_PORT}:5601
     networks:
-      - otasoft-catalog-network
-      - ingress
+      - elastic
+      - proxy
 
   nginx:
     image: nginx:alpine
@@ -54,13 +94,20 @@ services:
     ulimits:
       nproc: 65535
     networks:
-      - ingress
+      - proxy
 
 networks: 
-  otasoft-catalog-network:
+  elastic:
     driver: bridge
-  ingress:
+  proxy:
+    driver: bridge
+  db: 
     driver: bridge
 
 volumes:
-  es-data:
+  es-data01:
+    driver: local
+  es-data02:
+    driver: local
+  es-data03:
+    driver: local
