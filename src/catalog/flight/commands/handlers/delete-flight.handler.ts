@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { TextResponseModel } from '../../models/text-response.model';
 import { FlightRepository } from '../../repositories';
 import { DeleteFlightCommand } from '../impl';
@@ -12,15 +12,16 @@ export class DeleteFlightHandler
   constructor(
     @InjectRepository(FlightRepository)
     private readonly flightRepository: FlightRepository,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(command: DeleteFlightCommand): Promise<TextResponseModel> {
     try {
       this.flightRepository.delete(command.id);
     } catch (error) {
-      throw new RpcException({
-        statusCode: error.code,
-        errorStatus: 'Cannot remove flight',
+      this.rpcExceptionService.throwCatchedException({
+        code: error.code,
+        message: 'Cannot remove flight',
       });
     }
 

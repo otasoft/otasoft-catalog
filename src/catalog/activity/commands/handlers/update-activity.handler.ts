@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { ActivityEntity, ActivityRepository } from '../../repositories';
 import { UpdateActivityCommand } from '../impl';
 
@@ -11,6 +11,7 @@ export class UpdateActivityHandler
   constructor(
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(command: UpdateActivityCommand): Promise<ActivityEntity> {
@@ -25,9 +26,9 @@ export class UpdateActivityHandler
     try {
       activity.save();
     } catch (error) {
-      throw new RpcException({
-        statusCode: error.code,
-        errorStatus: 'Cannot update activity',
+      this.rpcExceptionService.throwCatchedException({
+        code: error.code,
+        message: 'Cannot update activity',
       });
     }
 

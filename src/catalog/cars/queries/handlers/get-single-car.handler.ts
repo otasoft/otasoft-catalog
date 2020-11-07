@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { CarsEntity, CarsRepository } from '../../repositories';
 import { GetSingleCarQuery } from '../impl';
 
@@ -10,16 +10,16 @@ export class GetSingleCarsHandler implements IQueryHandler<GetSingleCarQuery> {
   constructor(
     @InjectRepository(CarsRepository)
     private readonly carsRepository: CarsRepository,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(query: GetSingleCarQuery): Promise<CarsEntity> {
     const car: CarsEntity = await this.carsRepository.findOne(query.id);
 
     if (!car)
-      throw new RpcException({
-        statusCode: 404,
-        errorStatus: `Car with ID ${query.id} not found`,
-      });
+      this.rpcExceptionService.throwNotFound(
+        `Car with ID ${query.id} not found`,
+      );
 
     return car;
   }

@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { HotelEntity, HotelRepository } from '../../repositories';
 import { UpdateHotelCommand } from '../impl';
 
@@ -10,6 +10,7 @@ export class UpdateHotelHandler implements ICommandHandler<UpdateHotelCommand> {
   constructor(
     @InjectRepository(HotelRepository)
     private readonly hotelRepository: HotelRepository,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(command: UpdateHotelCommand): Promise<HotelEntity> {
@@ -23,9 +24,9 @@ export class UpdateHotelHandler implements ICommandHandler<UpdateHotelCommand> {
     try {
       hotel.save();
     } catch (error) {
-      throw new RpcException({
-        statusCode: error.code,
-        errorStatus: 'Cannot update hotel',
+      this.rpcExceptionService.throwCatchedException({
+        code: error.code,
+        message: 'Cannot update hotel',
       });
     }
 

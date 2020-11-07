@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { CarsEntity, CarsRepository } from '../../repositories';
 import { UpdateCarsCommand } from '../impl';
 
@@ -10,6 +10,7 @@ export class UpdateCarsHandler implements ICommandHandler<UpdateCarsCommand> {
   constructor(
     @InjectRepository(CarsRepository)
     private readonly carsRepository: CarsRepository,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(command: UpdateCarsCommand): Promise<CarsEntity> {
@@ -23,9 +24,9 @@ export class UpdateCarsHandler implements ICommandHandler<UpdateCarsCommand> {
     try {
       cars.save();
     } catch (error) {
-      throw new RpcException({
-        statusCode: error.code,
-        errorStatus: 'Cannot update cars',
+      this.rpcExceptionService.throwCatchedException({
+        code: error.code,
+        message: 'Cannot update cars',
       });
     }
 

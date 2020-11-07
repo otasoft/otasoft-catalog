@@ -1,8 +1,8 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { ErrorValidationService } from '../../../../utils/error-validation/error-validation.service';
+import { RpcExceptionService } from '../../../../utils/exception-handling';
+import { ErrorValidationService } from '../../../../utils/error-validation';
 import { FlightEntity, FlightRepository } from '../../repositories';
 import { CreateFlightCommand } from '../impl';
 
@@ -13,6 +13,7 @@ export class CreateFlightHandler
     @InjectRepository(FlightRepository)
     private readonly flightRepository: FlightRepository,
     private readonly errorValidationService: ErrorValidationService,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(command: CreateFlightCommand): Promise<FlightEntity> {
@@ -25,10 +26,8 @@ export class CreateFlightHandler
       await flight.save();
     } catch (error) {
       const errorObject = this.errorValidationService.validateError(error.code);
-      throw new RpcException({
-        statusCode: errorObject.code,
-        errorStatus: errorObject.message,
-      });
+
+      this.rpcExceptionService.throwCatchedException(errorObject);
     }
 
     return flight;

@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { TextResponseModel } from '../../models/text-response.model';
 import { HotelRepository } from '../../repositories';
 import { DeleteHotelCommand } from '../impl';
@@ -11,15 +11,16 @@ export class DeleteHotelHandler implements ICommandHandler<DeleteHotelCommand> {
   constructor(
     @InjectRepository(HotelRepository)
     private readonly hotelRepository: HotelRepository,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(command: DeleteHotelCommand): Promise<TextResponseModel> {
     try {
       this.hotelRepository.delete(command.id);
     } catch (error) {
-      throw new RpcException({
-        statusCode: error.code,
-        errorStatus: 'Cannot remove hotel',
+      this.rpcExceptionService.throwCatchedException({
+        code: error.code,
+        message: 'Cannot remove hotel',
       });
     }
 

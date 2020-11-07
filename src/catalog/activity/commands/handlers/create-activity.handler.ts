@@ -1,8 +1,8 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { ErrorValidationService } from '../../../../utils/error-validation/error-validation.service';
+import { RpcExceptionService } from '../../../../utils/exception-handling';
+import { ErrorValidationService } from '../../../../utils/error-validation';
 import { ActivityEntity, ActivityRepository } from '../../repositories';
 import { CreateActivityCommand } from '../impl';
 
@@ -13,6 +13,7 @@ export class CreateActivityHandler
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
     private readonly errorValidationService: ErrorValidationService,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(command: CreateActivityCommand): Promise<ActivityEntity> {
@@ -25,10 +26,8 @@ export class CreateActivityHandler
       await activity.save();
     } catch (error) {
       const errorObject = this.errorValidationService.validateError(error.code);
-      throw new RpcException({
-        statusCode: errorObject.code,
-        errorStatus: errorObject.message,
-      });
+
+      this.rpcExceptionService.throwCatchedException(errorObject);
     }
 
     return activity;
