@@ -1,6 +1,6 @@
 import { ISearchBody } from "../interfaces";
 /**
- * Method that loops over an object and updates each of its properties.
+ * Method that loops over an object and updates each of its properties to return a string.
  *
  * @param {ISearchBody} recordBody
  * @return {*} 
