@@ -1,9 +1,10 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { TextResponseModel } from '../../models/text-response.model';
-import { HotelRepository } from '../../repositories/hotel.repository';
-import { DeleteHotelCommand } from '../impl/delete-hotel.command';
+import { HotelRepository } from '../../repositories';
+import { DeleteHotelCommand } from '../impl';
 
 @CommandHandler(DeleteHotelCommand)
 export class DeleteHotelHandler implements ICommandHandler<DeleteHotelCommand> {

@@ -1,9 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ErrorValidationService } from 'src/utils/error-validation/error-validation.service';
-import { HotelEntity } from '../../repositories/hotel.entity';
-import { HotelRepository } from '../../repositories/hotel.repository';
+
+import { ErrorValidationService } from '../../../../utils/error-validation/error-validation.service';
+import { HotelEntity, HotelRepository } from '../../repositories';
 import { CreateHotelCommand } from '../impl/create-hotel.command';
 
 @CommandHandler(CreateHotelCommand)
