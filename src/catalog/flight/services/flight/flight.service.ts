@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CreateFlightCommand } from '../../commands/impl/create-flight.command';
-import { DeleteFlightCommand } from '../../commands/impl/delete-flight.command';
-import { UpdateFlightCommand } from '../../commands/impl/update-flight.command';
-import { FlightIdDto, CreateFlightDto, UpdateFlightDto } from '../../dto';
+
+import {
+  CreateFlightCommand,
+  DeleteFlightCommand,
+  UpdateFlightCommand,
+} from '../../commands/impl';
+import { CreateFlightDto, UpdateFlightDto } from '../../dto';
 import { TextResponseModel } from '../../models/text-response.model';
 import { GetSingleFlightQuery, GetAllFlightsQuery } from '../../queries/impl';
-import { FlightEntity } from '../../repositories/flight.entity';
+import { FlightEntity } from '../../repositories';
 
 @Injectable()
 export class FlightService {

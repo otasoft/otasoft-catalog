@@ -1,9 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FlightEntity } from '../../repositories/flight.entity';
-import { FlightRepository } from '../../repositories/flight.repository';
-import { UpdateFlightCommand } from '../impl/update-flight.command';
+
+import { FlightEntity, FlightRepository } from '../../repositories';
+import { UpdateFlightCommand } from '../impl';
 
 @CommandHandler(UpdateFlightCommand)
 export class UpdateFlightHandler

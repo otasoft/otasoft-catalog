@@ -1,10 +1,10 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { ErrorValidationService } from '../../../../utils/error-validation/error-validation.service';
-import { FlightEntity } from '../../repositories/flight.entity';
-import { FlightRepository } from '../../repositories/flight.repository';
-import { CreateFlightCommand } from '../impl/create-flight.command';
+import { FlightEntity, FlightRepository } from '../../repositories';
+import { CreateFlightCommand } from '../impl';
 
 @CommandHandler(CreateFlightCommand)
 export class CreateFlightHandler

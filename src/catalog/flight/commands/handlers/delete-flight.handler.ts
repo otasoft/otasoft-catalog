@@ -1,9 +1,10 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { TextResponseModel } from '../../models/text-response.model';
-import { FlightRepository } from '../../repositories/flight.repository';
-import { DeleteFlightCommand } from '../impl/delete-flight.command';
+import { FlightRepository } from '../../repositories';
+import { DeleteFlightCommand } from '../impl';
 
 @CommandHandler(DeleteFlightCommand)
 export class DeleteFlightHandler
