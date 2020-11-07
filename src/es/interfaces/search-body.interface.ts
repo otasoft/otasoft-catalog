@@ -5,7 +5,7 @@
  * @property {string} - description
  */
 export interface ISearchBody {
-    id: number,
-    name: string,
-    description: string,
+  id: number;
+  name: string;
+  description: string;
 }

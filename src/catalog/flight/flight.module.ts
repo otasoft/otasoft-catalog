@@ -15,6 +15,11 @@ import { FlightService } from './services/flight/flight.service';
     CqrsModule,
   ],
   controllers: [FlightController],
-  providers: [FlightService, ...CommandHandlers, ...QueryHandlers, ErrorValidationService],
+  providers: [
+    FlightService,
+    ...CommandHandlers,
+    ...QueryHandlers,
+    ErrorValidationService,
+  ],
 })
 export class FlightModule {}

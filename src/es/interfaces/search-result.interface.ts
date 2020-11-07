@@ -1,4 +1,4 @@
-import { ISearchBody } from "./search-body.interface";
+import { ISearchBody } from './search-body.interface';
 /**
  * @interface ISearchResult
  * @property {Object} - hits
@@ -6,10 +6,10 @@ import { ISearchBody } from "./search-body.interface";
  * @property {ISearchBody} - _source
  */
 export interface ISearchResult {
+  hits: {
+    total: number;
     hits: {
-        total: number;
-        hits: {
-            _source: ISearchBody
-        }[];
-    };
+      _source: ISearchBody;
+    }[];
+  };
 }

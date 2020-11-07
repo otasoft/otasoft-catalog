@@ -1,4 +1,4 @@
 export interface IErrorObject {
-    code: number;
-    message: string;
+  code: number;
+  message: string;
 }

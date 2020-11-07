@@ -1,9 +1,8 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ActivityEntity } from '../../repositories/activity.entity';
-import { ActivityRepository } from '../../repositories/activity.repository';
-import { UpdateActivityCommand } from '../impl/update-activity.command';
+import { ActivityEntity, ActivityRepository } from '../../repositories';
+import { UpdateActivityCommand } from '../impl';
 
 @CommandHandler(UpdateActivityCommand)
 export class UpdateActivityHandler

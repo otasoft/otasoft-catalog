@@ -15,6 +15,11 @@ import { HotelService } from './services/hotel/hotel.service';
     CqrsModule,
   ],
   controllers: [HotelController],
-  providers: [HotelService, ...CommandHandlers, ...QueryHandlers, ErrorValidationService],
+  providers: [
+    HotelService,
+    ...CommandHandlers,
+    ...QueryHandlers,
+    ErrorValidationService,
+  ],
 })
 export class HotelModule {}

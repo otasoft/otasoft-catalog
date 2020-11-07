@@ -12,6 +12,11 @@ import { CarsService } from './services/cars/cars.service';
 @Module({
   imports: [TypeOrmModule.forFeature([CarsRepository, CarsEntity]), CqrsModule],
   controllers: [CarsController],
-  providers: [CarsService, ...CommandHandlers, ...QueryHandlers, ErrorValidationService],
+  providers: [
+    CarsService,
+    ...CommandHandlers,
+    ...QueryHandlers,
+    ErrorValidationService,
+  ],
 })
 export class CarsModule {}

@@ -1,15 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CreateActivityCommand } from '../../commands/impl/create-activity.command';
-import { DeleteActivityCommand } from '../../commands/impl/delete-activity.command';
-import { UpdateActivityCommand } from '../../commands/impl/update-activity.command';
-import { ActivityIdDto, CreateActivityDto, UpdateActivityDto } from '../../dto';
+import {
+  CreateActivityCommand,
+  DeleteActivityCommand,
+  UpdateActivityCommand,
+} from '../../commands/impl';
+import { CreateActivityDto, UpdateActivityDto } from '../../dto';
 import { TextResponseModel } from '../../models/text-response.model';
 import {
   GetSingleActivityQuery,
   GetAllActivitiesQuery,
 } from '../../queries/impl';
-import { ActivityEntity } from '../../repositories/activity.entity';
+import { ActivityEntity } from '../../repositories';
 
 @Injectable()
 export class ActivityService {

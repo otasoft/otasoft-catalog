@@ -3,6 +3,6 @@ import { ErrorValidationService } from './error-validation/error-validation.serv
 
 @Global()
 @Module({
-    providers: [ErrorValidationService]
+  providers: [ErrorValidationService],
 })
 export class UtilsModule {}

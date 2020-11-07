@@ -2,9 +2,8 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ErrorValidationService } from '../../../../utils/error-validation/error-validation.service';
-import { ActivityEntity } from '../../repositories/activity.entity';
-import { ActivityRepository } from '../../repositories/activity.repository';
-import { CreateActivityCommand } from '../impl/create-activity.command';
+import { ActivityEntity, ActivityRepository } from '../../repositories';
+import { CreateActivityCommand } from '../impl';
 
 @CommandHandler(CreateActivityCommand)
 export class CreateActivityHandler
