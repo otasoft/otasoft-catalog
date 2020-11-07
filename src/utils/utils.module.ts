@@ -1,8 +1,10 @@
 import { Global, Module } from '@nestjs/common';
-import { ErrorValidationService } from './error-validation/error-validation.service';
+
+import { ErrorValidationService } from './error-validation';
+import { RpcExceptionService } from './exception-handling';
 
 @Global()
 @Module({
-  providers: [ErrorValidationService],
+  providers: [ErrorValidationService, RpcExceptionService],
 })
 export class UtilsModule {}
