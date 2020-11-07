@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { UtilsModule } from '../../utils/utils.module';
 import { CommandHandlers } from './commands/handlers';
 import { ActivityController } from './controllers/activity/activity.controller';

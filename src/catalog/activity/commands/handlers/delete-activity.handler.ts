@@ -1,6 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { TextResponseModel } from '../../models/text-response.model';
 import { ActivityRepository } from '../../repositories';
 import { DeleteActivityCommand } from '../impl';

@@ -1,6 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { ActivityEntity, ActivityRepository } from '../../repositories';
 import { UpdateActivityCommand } from '../impl';
 

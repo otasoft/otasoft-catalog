@@ -1,9 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { ErrorValidationService } from '../../../../utils/error-validation/error-validation.service';
-import { CarsEntity } from '../../repositories/cars.entity';
-import { CarsRepository } from '../../repositories/cars.repository';
+import { CarsEntity, CarsRepository } from '../../repositories';
 import { CreateCarsCommand } from '../impl/create-cars.command';
 
 @CommandHandler(CreateCarsCommand)

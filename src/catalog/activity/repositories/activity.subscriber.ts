@@ -4,6 +4,7 @@ import {
   EventSubscriber,
   InsertEvent,
 } from 'typeorm';
+
 import { ActivityEntity } from './activity.entity';
 
 @EventSubscriber()

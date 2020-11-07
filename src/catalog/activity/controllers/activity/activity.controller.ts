@@ -1,5 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
+
 import { CreateActivityDto, UpdateActivityDto } from '../../dto';
 import { ActivityEntity } from '../../repositories';
 import { ActivityService } from '../../services/activity/activity.service';

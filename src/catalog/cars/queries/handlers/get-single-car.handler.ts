@@ -1,9 +1,8 @@
-import { InternalServerErrorException } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CarsEntity } from '../../repositories/cars.entity';
-import { CarsRepository } from '../../repositories/cars.repository';
+
+import { CarsEntity, CarsRepository } from '../../repositories';
 import { GetSingleCarQuery } from '../impl';
 
 @QueryHandler(GetSingleCarQuery)

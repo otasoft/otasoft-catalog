@@ -1,6 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { ActivityEntity, ActivityRepository } from '../../repositories';
 import { GetAllActivitiesQuery } from '../impl/get-all-activities.query';
 

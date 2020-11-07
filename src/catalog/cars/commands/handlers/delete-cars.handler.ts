@@ -1,9 +1,10 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { TextResponseModel } from '../../models/text-response.model';
-import { CarsRepository } from '../../repositories/cars.repository';
-import { DeleteCarsCommand } from '../impl/delete-cars.command';
+import { CarsRepository } from '../../repositories';
+import { DeleteCarsCommand } from '../impl';
 
 @CommandHandler(DeleteCarsCommand)
 export class DeleteCarsHandler implements ICommandHandler<DeleteCarsCommand> {
