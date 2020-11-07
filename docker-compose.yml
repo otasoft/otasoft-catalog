@@ -1,7 +1,8 @@
 version: '3.7'
 services:
   mysql:
-    image: "mysql:5.7"
+    image: mysql:${MYSQL_VERSION}
+    container_name: mysql
     ports:
       - ${MYSQL_PORT}:3306
     env_file: 
@@ -11,6 +12,7 @@ services:
 
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
+    container_name: es01
     environment:
       - node.name=es01
       - cluster.name=${ELASTICSEARCH_CLUSTER_NAME}
@@ -35,6 +37,7 @@ services:
 
   es02:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
+    container_name: es02
     environment:
       - node.name=es02
       - cluster.name=${ELASTICSEARCH_CLUSTER_NAME}
@@ -56,6 +59,7 @@ services:
 
   es03:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
+    container_name: es03
     environment:
       - node.name=es03
       - cluster.name=${ELASTICSEARCH_CLUSTER_NAME}
@@ -75,6 +79,7 @@ services:
 
   kibana:
     image: docker.elastic.co/kibana/kibana:${ELK_VERSION}
+    container_name: kibana
     environment:
       SERVER_NAME: ${KIBANA_SERVER_NAME}
       ELASTICSEARCH_URL: http://elasticsearch:${ELASTICSEARCH_PORT}/
@@ -86,6 +91,7 @@ services:
 
   nginx:
     image: nginx:alpine
+    container_name: nginx
     ports:
         - ${NGINX_PORT}:80
     volumes:
