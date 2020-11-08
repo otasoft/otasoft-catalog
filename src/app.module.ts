@@ -1,17 +1,18 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
+
 import { DbModule } from './db/db.module';
 import { CatalogModule } from './catalog/catalog.module';
 import { HealthModule } from './health/health.module';
 import { UtilsModule } from './utils/utils.module';
-import { EsWrapperModule } from './es/es-wrapper.module';
+import { EsModule } from './es/es.module';
 
 @Module({
   imports: [
-    EsWrapperModule,
     ConfigModule.forRoot(),
     CqrsModule,
+    EsModule,
     DbModule,
     CatalogModule,
     HealthModule,
