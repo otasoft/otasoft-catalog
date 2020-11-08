@@ -18,6 +18,7 @@ export class RpcExceptionService {
       errorStatus: customErrorMessage || 'Not Found',
     });
   }
+
   /**
    * Method that throws an RpcException with catched status code and  message
    *
