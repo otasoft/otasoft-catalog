@@ -11,6 +11,7 @@ import { TextResponseModel } from '../../models/text-response.model';
 import {
   GetSingleActivityQuery,
   GetAllActivitiesQuery,
+  GetActivitiesByQueryQuery,
 } from '../../queries/impl';
 import { ActivityEntity } from '../../repositories';
 
@@ -27,6 +28,10 @@ export class ActivityService {
 
   async getAllActivities(): Promise<ActivityEntity[]> {
     return this.queryBus.execute(new GetAllActivitiesQuery());
+  }
+
+  async getActivitiesByQuery(query: string): Promise<ActivityEntity[]> {
+    return this.queryBus.execute(new GetActivitiesByQueryQuery(query));
   }
 
   async createActivity(

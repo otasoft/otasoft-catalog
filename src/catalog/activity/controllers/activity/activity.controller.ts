@@ -20,6 +20,11 @@ export class ActivityController {
     return this.activityService.getAllActivities();
   }
 
+  @MessagePattern({ role: 'activity', cmd: 'getActivityByQuery' })
+  async getActivitiesByQuery(query: string): Promise<ActivityEntity[]> {
+    return this.activityService.getActivitiesByQuery(query);
+  }
+
   @MessagePattern({ role: 'activity', cmd: 'create' })
   async createActivity(
     createActivityDto: CreateActivityDto,

@@ -5,6 +5,8 @@ import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { ErrorValidationService } from '../../../../utils/error-validation';
 import { ActivityEntity, ActivityRepository } from '../../repositories';
 import { CreateActivityCommand } from '../impl';
+import { EsService } from '../../../../es/es.service';
+import { ISearchBody } from 'src/es/interfaces';
 
 @CommandHandler(CreateActivityCommand)
 export class CreateActivityHandler
@@ -14,13 +16,13 @@ export class CreateActivityHandler
     private readonly activityRepository: ActivityRepository,
     private readonly errorValidationService: ErrorValidationService,
     private readonly rpcExceptionService: RpcExceptionService,
+    private readonly esService: EsService,
   ) {}
 
   async execute(command: CreateActivityCommand): Promise<ActivityEntity> {
-    const activity: ActivityEntity = await this.activityRepository.create();
-
-    activity.name = command.createActivityDto.name;
-    activity.description = command.createActivityDto.description;
+    const activity: ActivityEntity = await this.activityRepository.create({
+      ...command.createActivityDto,
+    });
 
     try {
       await activity.save();
@@ -29,6 +31,14 @@ export class CreateActivityHandler
 
       this.rpcExceptionService.throwCatchedException(errorObject);
     }
+
+    const searchBody: ISearchBody = {
+      id: activity.activity_id,
+      name: activity.name,
+      description: activity.description,
+    };
+
+    this.esService.indexWithData('activity', searchBody);
 
     return activity;
   }
