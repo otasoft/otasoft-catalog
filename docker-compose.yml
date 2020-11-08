@@ -10,7 +10,7 @@ services:
     networks:
       - db
 
-  es01:
+  elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
     container_name: es01
     environment:
