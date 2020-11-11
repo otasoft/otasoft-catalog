@@ -1,41 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 
-import { updateAllProperties } from './helpers/updateAllProperties';
+import { convertRecordBodyToEsString } from './helpers/convertRecordBodyToEsString';
 import { ISearchBody, ISearchResult } from './interfaces';
 
 /**
  * Service containing Elasticsearch methods (i.e. index, search, update).
- *
  */
 @Injectable()
 export class EsService {
   constructor(private readonly elasticsearchService: ElasticsearchService) {}
-
   /**
    * Method that indexes Elasticsearch with a new data.
-   *
-   * @param {string} index
-   * @param {*} body {ISearchBody}
-   * @return {*}  {Promise<void>}
    */
   async indexWithData(index: string, body: ISearchBody): Promise<unknown> {
     return await this.elasticsearchService.index<ISearchResult, ISearchBody>({
       index,
-      body: {
-        id: body.id,
-        name: body.name,
-        description: body.description,
-      },
+      body,
+      refresh: true,
     });
   }
-
   /**
    * Method that uses Elasticsearch engine to search for a text in certain index.
-   *
-   * @param {string} index
-   * @param {string} text
-   * @return {*}  {Promise<ISearchBody[]>}
+   * It looks for a match in both `name` and `description` fields and returns an array of search results.
    */
   async searchByText(index: string, text: string): Promise<ISearchBody[]> {
     const { body } = await this.elasticsearchService.search<ISearchResult>({
@@ -52,13 +39,9 @@ export class EsService {
     const hits = body.hits.hits;
     return hits.map(hit => hit._source);
   }
-
   /**
-   * Method that updates certain record based on updated record body.
-   *
-   * @param {string} index
-   * @param {ISearchBody} recordBody
-   * @return {*}  {Promise<unknown>}
+   * Method that updates certain record by ID in Elasticsearch based on updated record body.
+   * It uses an inline script to update all record properties.
    */
   async updateRecord(index: string, recordBody: ISearchBody): Promise<unknown> {
     return await this.elasticsearchService.updateByQuery({
@@ -70,18 +53,14 @@ export class EsService {
           },
         },
         script: {
-          inline: updateAllProperties,
+          inline: convertRecordBodyToEsString(recordBody),
         },
       },
+      refresh: true,
     });
   }
-
   /**
    * Method that removes a record from the Elasticsearch index by id.
-   *
-   * @param {string} index
-   * @param {number} catalogId
-   * @return {*}  {Promise<void>}
    */
   async removeRecordById(index: string, catalogId: number): Promise<void> {
     await this.elasticsearchService.deleteByQuery({
@@ -93,6 +72,7 @@ export class EsService {
           },
         },
       },
+      refresh: true,
     });
   }
 }

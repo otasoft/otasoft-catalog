@@ -16,7 +16,7 @@ import { EsService } from './es.service';
         node: `http://${configService.get(
           'ELASTICSEARCH_HOST',
         )}:${configService.get('ELASTICSEARCH_PORT')}`,
-        // This needs fix
+        // This will be added in the next major release of the elasticsearch client library
         // proxy: 'http:user:password@//localhost:port/elasticsearch',
         maxRetries: 10,
         requestTimeout: 5000,

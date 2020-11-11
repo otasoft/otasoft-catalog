@@ -1,6 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ErrorValidationService } from 'src/utils/error-validation';
 
+import { EsService } from '../../../../es/es.service';
+import { ISearchBody } from '../../../../es/interfaces';
 import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { ActivityEntity, ActivityRepository } from '../../repositories';
 import { UpdateActivityCommand } from '../impl';
@@ -12,26 +15,30 @@ export class UpdateActivityHandler
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
     private readonly rpcExceptionService: RpcExceptionService,
+    private readonly errorValidationService: ErrorValidationService,
+    private readonly esService: EsService,
   ) {}
 
   async execute(command: UpdateActivityCommand): Promise<ActivityEntity> {
-    const activity: ActivityEntity = await this.activityRepository.findOne(
-      command.updateActivityDto.id,
-    );
-
-    activity.name = command.updateActivityDto.updateActivityDto.name;
-    activity.description =
-      command.updateActivityDto.updateActivityDto.description;
 
     try {
-      activity.save();
+      await this.activityRepository.update(command.updateActivityDto.id, { name: command.updateActivityDto.updateActivityDto.name, description: command.updateActivityDto.updateActivityDto.description });
     } catch (error) {
-      this.rpcExceptionService.throwCatchedException({
-        code: error.code,
-        message: 'Cannot update activity',
-      });
+      const errorObject = this.errorValidationService.validateError(error.code);
+      
+      this.rpcExceptionService.throwCatchedException(errorObject);
     }
 
-    return activity;
+    const updatedActivity = await this.activityRepository.findOne(command.updateActivityDto.id);
+
+    const updatedBody: ISearchBody = {
+      id: updatedActivity.activity_id,
+      name: updatedActivity.name,
+      description: updatedActivity.description
+    }
+
+    await this.esService.updateRecord('activity', updatedBody);
+    
+    return updatedActivity;
   }
 }
