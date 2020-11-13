@@ -1,8 +1,8 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { HotelEntity } from '../../repositories/hotel.entity';
-import { HotelRepository } from '../../repositories/hotel.repository';
+
+import { RpcExceptionService } from '../../../../utils/exception-handling';
+import { HotelEntity, HotelRepository } from '../../repositories';
 import { GetSingleHotelQuery } from '../impl';
 
 @QueryHandler(GetSingleHotelQuery)
@@ -11,16 +11,16 @@ export class GetSingleHotelHandler
   constructor(
     @InjectRepository(HotelRepository)
     private readonly hotelRepository: HotelRepository,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(query: GetSingleHotelQuery): Promise<HotelEntity> {
     const hotel: HotelEntity = await this.hotelRepository.findOne(query.id);
 
     if (!hotel)
-      throw new RpcException({
-        statusCode: 404,
-        errorStatus: `Hotel with ID ${query.id} not found`,
-      });
+      this.rpcExceptionService.throwNotFound(
+        `Hotel with ID ${query.id} not found`,
+      );
 
     return hotel;
   }

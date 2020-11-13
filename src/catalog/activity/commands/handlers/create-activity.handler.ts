@@ -1,9 +1,12 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ActivityEntity } from '../../repositories/activity.entity';
-import { ActivityRepository } from '../../repositories/activity.repository';
-import { CreateActivityCommand } from '../impl/create-activity.command';
+
+import { RpcExceptionService } from '../../../../utils/exception-handling';
+import { ErrorValidationService } from '../../../../utils/error-validation';
+import { ActivityEntity, ActivityRepository } from '../../repositories';
+import { CreateActivityCommand } from '../impl';
+import { EsService } from '../../../../es/es.service';
+import { ISearchBody } from 'src/es/interfaces';
 
 @CommandHandler(CreateActivityCommand)
 export class CreateActivityHandler
@@ -11,22 +14,31 @@ export class CreateActivityHandler
   constructor(
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
+    private readonly errorValidationService: ErrorValidationService,
+    private readonly rpcExceptionService: RpcExceptionService,
+    private readonly esService: EsService,
   ) {}
 
   async execute(command: CreateActivityCommand): Promise<ActivityEntity> {
-    const activity: ActivityEntity = await this.activityRepository.create();
-
-    activity.name = command.createActivityDto.name;
-    activity.description = command.createActivityDto.description;
+    const activity: ActivityEntity = await this.activityRepository.create({
+      ...command.createActivityDto,
+    });
 
     try {
-      activity.save();
+      await activity.save();
     } catch (error) {
-      throw new RpcException({
-        statusCode: error.code,
-        errorStatus: 'Error while creating an activity',
-      });
+      const errorObject = this.errorValidationService.validateError(error.code);
+
+      this.rpcExceptionService.throwCatchedException(errorObject);
     }
+
+    const searchBody: ISearchBody = {
+      id: activity.activity_id,
+      name: activity.name,
+      description: activity.description,
+    };
+
+    this.esService.indexWithData('activity', searchBody);
 
     return activity;
   }

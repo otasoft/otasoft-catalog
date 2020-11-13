@@ -33,3 +33,10 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Auth
+/src/security/secrets/.htpasswd
+
+# SSL
+/src/security/secrets/private-key.key
+/src/security/secrets/public-cert.crt

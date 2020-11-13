@@ -1,8 +1,8 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FlightEntity } from '../../repositories/flight.entity';
-import { FlightRepository } from '../../repositories/flight.repository';
+
+import { RpcExceptionService } from '../../../../utils/exception-handling';
+import { FlightEntity, FlightRepository } from '../../repositories';
 import { GetSingleFlightQuery } from '../impl';
 
 @QueryHandler(GetSingleFlightQuery)
@@ -11,16 +11,16 @@ export class GetSingleFlightHandler
   constructor(
     @InjectRepository(FlightRepository)
     private readonly flightRepository: FlightRepository,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(query: GetSingleFlightQuery): Promise<FlightEntity> {
     const flight: FlightEntity = await this.flightRepository.findOne(query.id);
 
     if (!flight)
-      throw new RpcException({
-        statusCode: 404,
-        errorStatus: `Flight with ID ${query.id} not found`,
-      });
+      this.rpcExceptionService.throwNotFound(
+        `Flight with ID ${query.id} not found`,
+      );
 
     return flight;
   }

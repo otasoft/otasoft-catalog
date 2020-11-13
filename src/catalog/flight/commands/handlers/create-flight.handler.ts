@@ -1,9 +1,10 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FlightEntity } from '../../repositories/flight.entity';
-import { FlightRepository } from '../../repositories/flight.repository';
-import { CreateFlightCommand } from '../impl/create-flight.command';
+
+import { RpcExceptionService } from '../../../../utils/exception-handling';
+import { ErrorValidationService } from '../../../../utils/error-validation';
+import { FlightEntity, FlightRepository } from '../../repositories';
+import { CreateFlightCommand } from '../impl';
 
 @CommandHandler(CreateFlightCommand)
 export class CreateFlightHandler
@@ -11,6 +12,8 @@ export class CreateFlightHandler
   constructor(
     @InjectRepository(FlightRepository)
     private readonly flightRepository: FlightRepository,
+    private readonly errorValidationService: ErrorValidationService,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(command: CreateFlightCommand): Promise<FlightEntity> {
@@ -20,12 +23,11 @@ export class CreateFlightHandler
     flight.description = command.createFlightDto.description;
 
     try {
-      flight.save();
+      await flight.save();
     } catch (error) {
-      throw new RpcException({
-        statusCode: error.code,
-        errorStatus: 'Error while creating an flight',
-      });
+      const errorObject = this.errorValidationService.validateError(error.code);
+
+      this.rpcExceptionService.throwCatchedException(errorObject);
     }
 
     return flight;

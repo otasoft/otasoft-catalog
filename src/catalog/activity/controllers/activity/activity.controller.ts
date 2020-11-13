@@ -1,9 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import { CreateActivityDto } from '../../dto/create-activity.dto';
-import { ActivityIdDto } from '../../dto/activity-id.dto';
-import { UpdateActivityDto } from '../../dto/update-activity.dto';
-import { ActivityEntity } from '../../repositories/activity.entity';
+
+import { CreateActivityDto, UpdateActivityDto } from '../../dto';
+import { ActivityEntity } from '../../repositories';
 import { ActivityService } from '../../services/activity/activity.service';
 import { TextResponseModel } from '../../models/text-response.model';
 
@@ -19,6 +18,11 @@ export class ActivityController {
   @MessagePattern({ role: 'activity', cmd: 'getAll' })
   async getAllActivities(): Promise<ActivityEntity[]> {
     return this.activityService.getAllActivities();
+  }
+
+  @MessagePattern({ role: 'activity', cmd: 'getActivityByQuery' })
+  async getActivitiesByQuery(query: string): Promise<ActivityEntity[]> {
+    return this.activityService.getActivitiesByQuery(query);
   }
 
   @MessagePattern({ role: 'activity', cmd: 'create' })

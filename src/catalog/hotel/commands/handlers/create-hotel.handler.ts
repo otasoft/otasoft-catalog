@@ -1,8 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { HotelEntity } from '../../repositories/hotel.entity';
-import { HotelRepository } from '../../repositories/hotel.repository';
+
+import { RpcExceptionService } from '../../../../utils/exception-handling';
+import { ErrorValidationService } from '../../../../utils/error-validation';
+import { HotelEntity, HotelRepository } from '../../repositories';
 import { CreateHotelCommand } from '../impl/create-hotel.command';
 
 @CommandHandler(CreateHotelCommand)
@@ -10,6 +11,8 @@ export class CreateHotelHandler implements ICommandHandler<CreateHotelCommand> {
   constructor(
     @InjectRepository(HotelRepository)
     private readonly hotelRepository: HotelRepository,
+    private readonly errorValidationService: ErrorValidationService,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(command: CreateHotelCommand): Promise<HotelEntity> {
@@ -19,12 +22,11 @@ export class CreateHotelHandler implements ICommandHandler<CreateHotelCommand> {
     hotel.description = command.createHotelDto.description;
 
     try {
-      hotel.save();
+      await hotel.save();
     } catch (error) {
-      throw new RpcException({
-        statusCode: error.code,
-        errorStatus: 'Error while creating an hotel',
-      });
+      const errorObject = this.errorValidationService.validateError(error.code);
+
+      this.rpcExceptionService.throwCatchedException(errorObject);
     }
 
     return hotel;

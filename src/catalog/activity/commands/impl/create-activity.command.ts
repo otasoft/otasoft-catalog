@@ -1,4 +1,4 @@
-import { CreateActivityDto } from '../../dto/create-activity.dto';
+import { CreateActivityDto } from '../../dto';
 
 export class CreateActivityCommand {
   constructor(public readonly createActivityDto: CreateActivityDto) {}

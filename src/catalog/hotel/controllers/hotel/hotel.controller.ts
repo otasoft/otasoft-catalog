@@ -1,8 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import { CreateHotelDto } from '../../dto/create-hotel.dto';
-import { UpdateHotelDto } from '../../dto/update-hotel.dto';
-import { HotelEntity } from '../../repositories/hotel.entity';
+
+import { CreateHotelDto, UpdateHotelDto } from '../../dto';
+import { HotelEntity } from '../../repositories';
 import { HotelService } from '../../services/hotel/hotel.service';
 import { TextResponseModel } from '../../models/text-response.model';
 

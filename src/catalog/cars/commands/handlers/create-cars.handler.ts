@@ -1,8 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CarsEntity } from '../../repositories/cars.entity';
-import { CarsRepository } from '../../repositories/cars.repository';
+
+import { RpcExceptionService } from '../../../../utils/exception-handling';
+import { ErrorValidationService } from '../../../../utils/error-validation';
+import { CarsEntity, CarsRepository } from '../../repositories';
 import { CreateCarsCommand } from '../impl/create-cars.command';
 
 @CommandHandler(CreateCarsCommand)
@@ -10,6 +11,8 @@ export class CreateCarsHandler implements ICommandHandler<CreateCarsCommand> {
   constructor(
     @InjectRepository(CarsRepository)
     private readonly carsRepository: CarsRepository,
+    private readonly errorValidationService: ErrorValidationService,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(command: CreateCarsCommand): Promise<CarsEntity> {
@@ -19,12 +22,11 @@ export class CreateCarsHandler implements ICommandHandler<CreateCarsCommand> {
     cars.description = command.createCarsDto.description;
 
     try {
-      cars.save();
+      await cars.save();
     } catch (error) {
-      throw new RpcException({
-        statusCode: error.code,
-        errorStatus: 'Error while creating an cars',
-      });
+      const errorObject = this.errorValidationService.validateError(error.code);
+
+      this.rpcExceptionService.throwCatchedException(errorObject);
     }
 
     return cars;

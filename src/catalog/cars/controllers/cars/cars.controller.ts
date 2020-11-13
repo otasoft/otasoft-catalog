@@ -1,8 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import { CreateCarsDto } from '../../dto/create-cars.dto';
-import { CarsIdDto } from '../../dto/cars-id.dto';
-import { UpdateCarsDto } from '../../dto/update-cars.dto';
+
+import { CreateCarsDto, UpdateCarsDto } from '../../dto';
 import { CarsEntity } from '../../repositories/cars.entity';
 import { CarsService } from '../../services/cars/cars.service';
 import { TextResponseModel } from '../../models/text-response.model';

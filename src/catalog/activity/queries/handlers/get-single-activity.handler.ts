@@ -1,8 +1,8 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ActivityEntity } from '../../repositories/activity.entity';
-import { ActivityRepository } from '../../repositories/activity.repository';
+
+import { RpcExceptionService } from '../../../../utils/exception-handling';
+import { ActivityEntity, ActivityRepository } from '../../repositories';
 import { GetSingleActivityQuery } from '../impl';
 
 @QueryHandler(GetSingleActivityQuery)
@@ -11,6 +11,7 @@ export class GetSingleActivityHandler
   constructor(
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(query: GetSingleActivityQuery): Promise<ActivityEntity> {
@@ -19,10 +20,9 @@ export class GetSingleActivityHandler
     );
 
     if (!activity)
-      throw new RpcException({
-        statusCode: 404,
-        errorStatus: `Activity with ID ${query.id} not found`,
-      });
+      this.rpcExceptionService.throwNotFound(
+        `Activity with ID ${query.id} not found`,
+      );
 
     return activity;
   }

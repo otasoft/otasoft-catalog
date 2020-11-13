@@ -1,9 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FlightEntity } from '../../repositories/flight.entity';
-import { FlightRepository } from '../../repositories/flight.repository';
-import { UpdateFlightCommand } from '../impl/update-flight.command';
+
+import { RpcExceptionService } from '../../../../utils/exception-handling';
+import { FlightEntity, FlightRepository } from '../../repositories';
+import { UpdateFlightCommand } from '../impl';
 
 @CommandHandler(UpdateFlightCommand)
 export class UpdateFlightHandler
@@ -11,6 +11,7 @@ export class UpdateFlightHandler
   constructor(
     @InjectRepository(FlightRepository)
     private readonly flightRepository: FlightRepository,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   async execute(command: UpdateFlightCommand): Promise<FlightEntity> {
@@ -24,9 +25,9 @@ export class UpdateFlightHandler
     try {
       flight.save();
     } catch (error) {
-      throw new RpcException({
-        statusCode: error.code,
-        errorStatus: 'Cannot update flight',
+      this.rpcExceptionService.throwCatchedException({
+        code: error.code,
+        message: 'Cannot update flight',
       });
     }
 

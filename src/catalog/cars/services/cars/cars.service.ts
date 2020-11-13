@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CreateCarsCommand } from '../../commands/impl/create-cars.command';
-import { DeleteCarsCommand } from '../../commands/impl/delete-cars.command';
-import { UpdateCarsCommand } from '../../commands/impl/update-cars.command';
-import { CarsIdDto, CreateCarsDto, UpdateCarsDto } from '../../dto';
+
+import {
+  CreateCarsCommand,
+  UpdateCarsCommand,
+  DeleteCarsCommand,
+} from '../../commands/impl';
+import { CreateCarsDto, UpdateCarsDto } from '../../dto';
 import { TextResponseModel } from '../../models/text-response.model';
 import { GetSingleCarQuery, GetAllCarsQuery } from '../../queries/impl';
 import { CarsEntity } from '../../repositories/cars.entity';

@@ -1,8 +1,8 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FlightEntity } from '../../repositories/flight.entity';
-import { FlightRepository } from '../../repositories/flight.repository';
+
+import { RpcExceptionService } from '../../../../utils/exception-handling';
+import { FlightEntity, FlightRepository } from '../../repositories';
 import { GetAllFlightsQuery } from '../impl/get-all-flights.query';
 
 @QueryHandler(GetAllFlightsQuery)
@@ -10,6 +10,7 @@ export class GetAllFlightsHandler implements IQueryHandler<GetAllFlightsQuery> {
   constructor(
     @InjectRepository(FlightRepository)
     private readonly flightRepository: FlightRepository,
+    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   // Currently query is not used, but in the future, requesting all Flights will have some params like pagination, order, etc.
@@ -17,10 +18,7 @@ export class GetAllFlightsHandler implements IQueryHandler<GetAllFlightsQuery> {
     const flights: FlightEntity[] = await this.flightRepository.find();
 
     if (!flights.length)
-      throw new RpcException({
-        statusCode: 404,
-        errorStatus: 'Flights not found',
-      });
+      this.rpcExceptionService.throwNotFound('Flights not found');
 
     return flights;
   }

@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CreateHotelCommand } from '../../commands/impl/create-hotel.command';
-import { DeleteHotelCommand } from '../../commands/impl/delete-hotel.command';
-import { UpdateHotelCommand } from '../../commands/impl/update-hotel.command';
+
+import {
+  CreateHotelCommand,
+  UpdateHotelCommand,
+  DeleteHotelCommand,
+} from '../../commands/impl';
 import { CreateHotelDto, UpdateHotelDto } from '../../dto';
 import { TextResponseModel } from '../../models/text-response.model';
 import { GetSingleHotelQuery, GetAllHotelsQuery } from '../../queries/impl';
-import { HotelEntity } from '../../repositories/hotel.entity';
+import { HotelEntity } from '../../repositories';
 
 @Injectable()
 export class HotelService {
