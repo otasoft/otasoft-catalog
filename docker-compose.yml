@@ -94,9 +94,12 @@ services:
     container_name: nginx
     ports:
         - ${NGINX_PORT}:80
+        - 443:443
     volumes:
         - ${PWD}/nginx/:/etc/nginx/conf.d/
-        - ./nginx/.htpasswd:/etc/nginx/.htpasswd
+        - ./src/security/secrets/.htpasswd:/etc/nginx/.htpasswd
+        - ./src/security/secrets/public-cert.crt:/etc/ssl/public-cert.crt
+        - ./src/security/secrets/private-key.key:/etc/ssl/private-key.key
     ulimits:
       nproc: 65535
     networks:

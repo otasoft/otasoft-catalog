@@ -1,1 +1,0 @@
-htpasswd -c ./.htpasswd nginxUser36

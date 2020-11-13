@@ -35,4 +35,8 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # Auth
-/nginx/.htpasswd
+/src/security/secrets/.htpasswd
+
+# SSL
+/src/security/secrets/private-key.key
+/src/security/secrets/public-cert.crt
