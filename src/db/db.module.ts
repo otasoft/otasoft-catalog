@@ -17,7 +17,6 @@ import { CatalogSubscribers } from './subscribers';
         password: configService.get('MYSQL_PASSWORD'),
         database: configService.get('MYSQL_DATABASE'),
         synchronize: true,
-        autoLoadEntities: true,
         entities: [...CatalogEntities]
       }),
     }),

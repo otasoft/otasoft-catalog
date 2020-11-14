@@ -5,7 +5,7 @@ import {
   InsertEvent,
 } from 'typeorm';
 
-import { HotelEntity } from './hotel.entity';
+import { HotelEntity } from '../entities/hotel.entity';
 
 @EventSubscriber()
 export class HotelSubscriber implements EntitySubscriberInterface<HotelEntity> {

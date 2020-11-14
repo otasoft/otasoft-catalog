@@ -6,12 +6,12 @@ import { UtilsModule } from '../../utils/utils.module';
 import { CommandHandlers } from './commands/handlers';
 import { HotelController } from './controllers/hotel/hotel.controller';
 import { QueryHandlers } from './queries/handlers';
-import { HotelSubscriber, HotelEntity, HotelRepository } from './repositories';
+import { HotelRepository } from './repositories';
 import { HotelService } from './services/hotel/hotel.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([HotelRepository, HotelEntity]),
+    TypeOrmModule.forFeature([HotelRepository]),
     CqrsModule,
     UtilsModule,
   ],
@@ -20,7 +20,6 @@ import { HotelService } from './services/hotel/hotel.service';
     HotelService,
     ...CommandHandlers,
     ...QueryHandlers,
-    HotelSubscriber,
   ],
 })
 export class HotelModule {}
