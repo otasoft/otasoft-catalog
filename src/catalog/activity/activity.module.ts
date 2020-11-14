@@ -6,9 +6,7 @@ import { UtilsModule } from '../../utils/utils.module';
 import { CommandHandlers } from './commands/handlers';
 import { ActivityController } from './controllers/activity/activity.controller';
 import { QueryHandlers } from './queries/handlers';
-import {
-  ActivityRepository,
-} from './repositories';
+import { ActivityRepository } from './repositories';
 import { ActivityService } from './services/activity/activity.service';
 
 @Module({
@@ -18,10 +16,6 @@ import { ActivityService } from './services/activity/activity.service';
     UtilsModule,
   ],
   controllers: [ActivityController],
-  providers: [
-    ActivityService,
-    ...CommandHandlers,
-    ...QueryHandlers,
-  ],
+  providers: [ActivityService, ...CommandHandlers, ...QueryHandlers],
 })
 export class ActivityModule {}

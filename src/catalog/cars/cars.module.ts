@@ -16,10 +16,6 @@ import { CarsService } from './services/cars/cars.service';
     UtilsModule,
   ],
   controllers: [CarsController],
-  providers: [
-    CarsService,
-    ...CommandHandlers,
-    ...QueryHandlers,
-  ],
+  providers: [CarsService, ...CommandHandlers, ...QueryHandlers],
 })
 export class CarsModule {}

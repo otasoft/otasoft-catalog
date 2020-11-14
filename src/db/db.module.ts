@@ -17,10 +17,10 @@ import { CatalogSubscribers } from './subscribers';
         password: configService.get('MYSQL_PASSWORD'),
         database: configService.get('MYSQL_DATABASE'),
         synchronize: true,
-        entities: [...CatalogEntities]
+        entities: [...CatalogEntities],
       }),
     }),
   ],
-  providers: [...CatalogSubscribers]
+  providers: [...CatalogSubscribers],
 })
 export class DbModule {}

@@ -16,10 +16,6 @@ import { HotelService } from './services/hotel/hotel.service';
     UtilsModule,
   ],
   controllers: [HotelController],
-  providers: [
-    HotelService,
-    ...CommandHandlers,
-    ...QueryHandlers,
-  ],
+  providers: [HotelService, ...CommandHandlers, ...QueryHandlers],
 })
 export class HotelModule {}
