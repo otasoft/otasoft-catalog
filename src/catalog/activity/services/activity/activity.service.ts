@@ -13,7 +13,7 @@ import {
   GetAllActivitiesQuery,
   GetActivitiesByQueryQuery,
 } from '../../queries/impl';
-import { ActivityEntity } from '../../repositories';
+import { ActivityEntity } from '../../../../db/entities/activity.entity';
 
 @Injectable()
 export class ActivityService {

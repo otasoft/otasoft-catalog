@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { CatalogEntities } from './entities';
+import { CatalogSubscribers } from './subscribers';
 
 @Module({
   imports: [
@@ -16,8 +18,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         database: configService.get('MYSQL_DATABASE'),
         synchronize: true,
         autoLoadEntities: true,
+        entities: [...CatalogEntities]
       }),
     }),
   ],
+  providers: [...CatalogSubscribers]
 })
 export class DbModule {}
