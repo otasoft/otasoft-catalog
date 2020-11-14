@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { CreateCarsDto, UpdateCarsDto } from '../../dto';
-import { CarsEntity } from '../../repositories/cars.entity';
+import { CarsEntity } from '../../../../db/entities/cars.entity';
 import { CarsService } from '../../services/cars/cars.service';
 import { TextResponseModel } from '../../models/text-response.model';
 

@@ -2,8 +2,9 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { CarsEntity, CarsRepository } from '../../repositories';
+import { CarsRepository } from '../../repositories';
 import { UpdateCarsCommand } from '../impl';
+import { CarsEntity } from '../../../../db/entities/cars.entity';
 
 @CommandHandler(UpdateCarsCommand)
 export class UpdateCarsHandler implements ICommandHandler<UpdateCarsCommand> {

@@ -5,7 +5,7 @@ import {
   InsertEvent,
 } from 'typeorm';
 
-import { CarsEntity } from './cars.entity';
+import { CarsEntity } from '../entities/cars.entity';
 
 @EventSubscriber()
 export class CarsSubscriber implements EntitySubscriberInterface<CarsEntity> {
