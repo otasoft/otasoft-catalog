@@ -2,8 +2,9 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { FlightEntity, FlightRepository } from '../../repositories';
+import { FlightRepository } from '../../repositories';
 import { UpdateFlightCommand } from '../impl';
+import { FlightEntity } from '../../../../db/entities/flight.entity';
 
 @CommandHandler(UpdateFlightCommand)
 export class UpdateFlightHandler

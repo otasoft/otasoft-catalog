@@ -7,15 +7,13 @@ import { CommandHandlers } from './commands/handlers';
 import { FlightController } from './controllers/flight/flight.controller';
 import { QueryHandlers } from './queries/handlers';
 import {
-  FlightSubscriber,
-  FlightEntity,
   FlightRepository,
 } from './repositories';
 import { FlightService } from './services/flight/flight.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([FlightRepository, FlightEntity]),
+    TypeOrmModule.forFeature([FlightRepository]),
     CqrsModule,
     UtilsModule,
   ],
@@ -24,7 +22,6 @@ import { FlightService } from './services/flight/flight.service';
     FlightService,
     ...CommandHandlers,
     ...QueryHandlers,
-    FlightSubscriber,
   ],
 })
 export class FlightModule {}

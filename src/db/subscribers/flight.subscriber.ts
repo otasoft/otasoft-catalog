@@ -5,7 +5,7 @@ import {
   InsertEvent,
 } from 'typeorm';
 
-import { FlightEntity } from './flight.entity';
+import { FlightEntity } from '../entities/flight.entity';
 
 @EventSubscriber()
 export class FlightSubscriber
