@@ -1,12 +1,36 @@
 version: '3.7'
 services:
-  mysql:
-    image: mysql:${MYSQL_VERSION}
-    container_name: mysql
+  mysql_master:
+    image: mysql:${DATABASE_VERSION}
+    container_name: mysql_master
     ports:
-      - ${MYSQL_PORT}:3306
-    env_file: 
-      - .env
+      - ${MASTER_PORT}:3306
+    environment: 
+      - MYSQL_DATABASE=${MASTER_DATABASE}
+      - MYSQL_USER=${MASTER_USER}
+      - MYSQL_PASSWORD=${MASTER_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MASTER_ROOT_PASSWORD}
+      - MYSQL_HOST=${MASTER_HOST}
+      - MYSQL_PORT=${MASTER_PORT}
+    volumes:
+      - master-db:/var/lib/mysql
+    networks:
+      - db
+
+  mysql_slave:
+    image: mysql:${DATABASE_VERSION}
+    container_name: mysql_slave
+    ports:
+      - ${SLAVE_PORT}:3306
+    environment: 
+      - MYSQL_DATABASE=${SLAVE_DATABASE}
+      - MYSQL_USER=${SLAVE_USER}
+      - MYSQL_PASSWORD=${SLAVE_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${SLAVE_ROOT_PASSWORD}
+      - MYSQL_HOST=${SLAVE_HOST}
+      - MYSQL_PORT=${SLAVE_PORT}
+    volumes:
+      - slave-db:/var/lib/mysql
     networks:
       - db
 
@@ -119,4 +143,8 @@ volumes:
   es-data02:
     driver: local
   es-data03:
+    driver: local
+  master-db:
+    driver: local
+  slave-db:
     driver: local
