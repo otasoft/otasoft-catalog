@@ -3,6 +3,7 @@ import {
   EntitySubscriberInterface,
   EventSubscriber,
   InsertEvent,
+  UpdateEvent,
 } from 'typeorm';
 
 import { HotelEntity } from '../entities/hotel.entity';
@@ -21,7 +22,7 @@ export class HotelSubscriber implements EntitySubscriberInterface<HotelEntity> {
     console.log('BEFORE HOTEL INSERTED:', event.entity);
   }
 
-  beforeUpdate(event: InsertEvent<HotelEntity>) {
+  beforeUpdate(event: UpdateEvent<HotelEntity>) {
     console.log('BEFORE HOTEL UPDATED:', event.entity);
   }
 

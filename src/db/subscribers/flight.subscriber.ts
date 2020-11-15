@@ -3,6 +3,7 @@ import {
   EntitySubscriberInterface,
   EventSubscriber,
   InsertEvent,
+  UpdateEvent,
 } from 'typeorm';
 
 import { FlightEntity } from '../entities/flight.entity';
@@ -22,7 +23,7 @@ export class FlightSubscriber
     console.log('BEFORE FLIGHT INSERTED:', event.entity);
   }
 
-  beforeUpdate(event: InsertEvent<FlightEntity>) {
+  beforeUpdate(event: UpdateEvent<FlightEntity>) {
     console.log('BEFORE FLIGHT UPDATED:', event.entity);
   }
 
