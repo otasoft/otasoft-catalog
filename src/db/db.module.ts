@@ -21,14 +21,16 @@ import { CatalogSubscribers } from './subscribers';
             password: configService.get('MASTER_PASSWORD'),
             database: configService.get('MASTER_DATABASE'),
           },
-          slaves: [{
-            host: configService.get('SLAVE_HOST'),
-            port: configService.get('SLAVE_PORT'),
-            username: configService.get('SLAVE_USER'),
-            password: configService.get('SLAVE_PASSWORD'),
-            database: configService.get('SLAVE_DATABASE'),
-          }]
-        }
+          slaves: [
+            {
+              host: configService.get('SLAVE_HOST'),
+              port: configService.get('SLAVE_PORT'),
+              username: configService.get('SLAVE_USER'),
+              password: configService.get('SLAVE_PASSWORD'),
+              database: configService.get('SLAVE_DATABASE'),
+            },
+          ],
+        },
       }),
     }),
   ],
