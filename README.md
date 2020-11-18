@@ -131,6 +131,7 @@ After that, you can safely run `docker-compose up`
 ## Database replication
 
 All SQL commands can be run while being logged in to mysql (without `mysql -uroot -p$MYSQL_MASTER_ROOT_PASSWORD -AN -e`). It is considered as a safer approach to not use the root password in the command line.
+`Database names env variables must be the same for master and slave, otherwise it will throw an error!`
 
 ### General usage
 
