@@ -5,15 +5,20 @@ services:
     container_name: mysql_master
     ports:
       - ${MASTER_PORT}:3306
+    expose:
+      - "3306"
     environment: 
       - MYSQL_DATABASE=${MASTER_DATABASE}
       - MYSQL_USER=${MASTER_USER}
       - MYSQL_PASSWORD=${MASTER_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${MASTER_ROOT_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_MASTER_ROOT_PASSWORD}
       - MYSQL_HOST=${MASTER_HOST}
       - MYSQL_PORT=${MASTER_PORT}
+      - MYSQL_REPLICATION_USER=${MYSQL_REPLICATION_USER}
+      - MYSQL_REPLICATION_PASSWORD=${MYSQL_REPLICATION_PASSWORD}
     volumes:
-      - master-db:/var/lib/mysql
+      - ./src/db/replication/master/data:/var/lib/mysql:rw,cached
+      - ./src/db/replication/master/conf:/etc/mysql/conf.d:rw,cached
     networks:
       - db
 
@@ -22,15 +27,21 @@ services:
     container_name: mysql_slave
     ports:
       - ${SLAVE_PORT}:3306
+    expose:
+      - "3306"
     environment: 
       - MYSQL_DATABASE=${SLAVE_DATABASE}
       - MYSQL_USER=${SLAVE_USER}
       - MYSQL_PASSWORD=${SLAVE_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${SLAVE_ROOT_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_SLAVE_ROOT_PASSWORD}
       - MYSQL_HOST=${SLAVE_HOST}
       - MYSQL_PORT=${SLAVE_PORT}
+      - MYSQL_MASTER_ADDRESS=mysql_master
+      - MYSQL_REPLICATION_USER=${MYSQL_REPLICATION_USER}
+      - MYSQL_REPLICATION_PASSWORD=${MYSQL_REPLICATION_PASSWORD}
     volumes:
-      - slave-db:/var/lib/mysql
+      - ./src/db/replication/slave/data:/var/lib/mysql:rw,cached
+      - ./src/db/replication/slave/conf:/etc/mysql/conf.d:rw,cached
     networks:
       - db
 
@@ -143,8 +154,4 @@ volumes:
   es-data02:
     driver: local
   es-data03:
-    driver: local
-  master-db:
-    driver: local
-  slave-db:
     driver: local

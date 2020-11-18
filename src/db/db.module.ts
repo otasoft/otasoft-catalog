@@ -11,13 +11,24 @@ import { CatalogSubscribers } from './subscribers';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'mysql',
-        host: configService.get('MYSQL_HOST'),
-        port: configService.get('MYSQL_PORT'),
-        username: configService.get('MYSQL_USER'),
-        password: configService.get('MYSQL_PASSWORD'),
-        database: configService.get('MYSQL_DATABASE'),
-        synchronize: true,
         entities: [...CatalogEntities],
+        synchronize: true,
+        replication: {
+          master: {
+            host: configService.get('MASTER_HOST'),
+            port: configService.get('MASTER_PORT'),
+            username: configService.get('MASTER_USER'),
+            password: configService.get('MASTER_PASSWORD'),
+            database: configService.get('MASTER_DATABASE'),
+          },
+          slaves: [{
+            host: configService.get('SLAVE_HOST'),
+            port: configService.get('SLAVE_PORT'),
+            username: configService.get('SLAVE_USER'),
+            password: configService.get('SLAVE_PASSWORD'),
+            database: configService.get('SLAVE_DATABASE'),
+          }]
+        }
       }),
     }),
   ],

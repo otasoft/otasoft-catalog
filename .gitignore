@@ -40,3 +40,7 @@ lerna-debug.log*
 # SSL
 /src/security/secrets/private-key.key
 /src/security/secrets/public-cert.crt
+
+# DB
+/src/db/replication/master/data
+/src/db/replication/slave/data
