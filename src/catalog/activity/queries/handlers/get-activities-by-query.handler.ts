@@ -4,8 +4,9 @@ import { In } from 'typeorm';
 
 import { EsService } from '../../../../es/es.service';
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { ActivityEntity, ActivityRepository } from '../../repositories';
+import { ActivityRepository } from '../../repositories';
 import { GetActivitiesByQueryQuery } from '../impl';
+import { ActivityEntity } from '../../../../db/entities/activity.entity';
 
 @QueryHandler(GetActivitiesByQueryQuery)
 export class GetActivitiesByQueryHandler

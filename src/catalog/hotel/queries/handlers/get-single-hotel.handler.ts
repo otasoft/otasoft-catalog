@@ -2,8 +2,9 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { HotelEntity, HotelRepository } from '../../repositories';
+import { HotelRepository } from '../../repositories';
 import { GetSingleHotelQuery } from '../impl';
+import { HotelEntity } from '../../../../db/entities/hotel.entity';
 
 @QueryHandler(GetSingleHotelQuery)
 export class GetSingleHotelHandler

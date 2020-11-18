@@ -21,14 +21,14 @@ export class DeleteActivityHandler
     try {
       await this.activityRepository.delete(command.id);
     } catch (error) {
-      console.log(error.code)
+      console.log(error.code);
       this.rpcExceptionService.throwCatchedException({
         code: error.code,
         message: 'Cannot remove activity',
       });
     }
 
-    await this.esService.removeRecordById('activity', command.id)
+    await this.esService.removeRecordById('activity', command.id);
 
     return {
       response: `Activity with id #${command.id} successfuly deleted`,

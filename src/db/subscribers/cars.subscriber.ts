@@ -3,9 +3,10 @@ import {
   EntitySubscriberInterface,
   EventSubscriber,
   InsertEvent,
+  UpdateEvent,
 } from 'typeorm';
 
-import { CarsEntity } from './cars.entity';
+import { CarsEntity } from '../entities/cars.entity';
 
 @EventSubscriber()
 export class CarsSubscriber implements EntitySubscriberInterface<CarsEntity> {
@@ -21,7 +22,7 @@ export class CarsSubscriber implements EntitySubscriberInterface<CarsEntity> {
     console.log('BEFORE CAR INSERTED:', event.entity);
   }
 
-  beforeUpdate(event: InsertEvent<CarsEntity>) {
+  beforeUpdate(event: UpdateEvent<CarsEntity>) {
     console.log('BEFORE CAR UPDATED:', event.entity);
   }
 

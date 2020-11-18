@@ -3,9 +3,10 @@ import {
   EntitySubscriberInterface,
   EventSubscriber,
   InsertEvent,
+  UpdateEvent,
 } from 'typeorm';
 
-import { ActivityEntity } from './activity.entity';
+import { ActivityEntity } from '../entities/activity.entity';
 
 @EventSubscriber()
 export class ActivitySubscriber
@@ -22,7 +23,7 @@ export class ActivitySubscriber
     console.log('BEFORE ACTIVITY INSERTED:', event.entity);
   }
 
-  beforeUpdate(event: InsertEvent<ActivityEntity>) {
+  beforeUpdate(event: UpdateEvent<ActivityEntity>) {
     console.log('BEFORE ACTIVITY UPDATED:', event.entity);
   }
 

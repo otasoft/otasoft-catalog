@@ -2,8 +2,9 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { CarsEntity, CarsRepository } from '../../repositories';
+import { CarsRepository } from '../../repositories';
 import { GetSingleCarQuery } from '../impl';
+import { CarsEntity } from '../../../../db/entities/cars.entity';
 
 @QueryHandler(GetSingleCarQuery)
 export class GetSingleCarsHandler implements IQueryHandler<GetSingleCarQuery> {

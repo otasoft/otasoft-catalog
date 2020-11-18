@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
 
-import { FlightEntity } from './flight.entity';
+import { FlightEntity } from '../../../db/entities/flight.entity';
 
 @EntityRepository(FlightEntity)
 export class FlightRepository extends Repository<FlightEntity> {}

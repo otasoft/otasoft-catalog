@@ -2,8 +2,9 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { FlightEntity, FlightRepository } from '../../repositories';
+import { FlightRepository } from '../../repositories';
 import { GetAllFlightsQuery } from '../impl/get-all-flights.query';
+import { FlightEntity } from '../../../../db/entities/flight.entity';
 
 @QueryHandler(GetAllFlightsQuery)
 export class GetAllFlightsHandler implements IQueryHandler<GetAllFlightsQuery> {

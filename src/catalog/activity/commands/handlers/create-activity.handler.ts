@@ -3,7 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { ErrorValidationService } from '../../../../utils/error-validation';
-import { ActivityEntity, ActivityRepository } from '../../repositories';
+import { ActivityRepository } from '../../repositories';
+import { ActivityEntity } from '../../../../db/entities/activity.entity';
 import { CreateActivityCommand } from '../impl';
 import { EsService } from '../../../../es/es.service';
 import { ISearchBody } from 'src/es/interfaces';

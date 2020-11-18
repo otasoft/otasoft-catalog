@@ -9,7 +9,7 @@ import {
 import { CreateHotelDto, UpdateHotelDto } from '../../dto';
 import { TextResponseModel } from '../../models/text-response.model';
 import { GetSingleHotelQuery, GetAllHotelsQuery } from '../../queries/impl';
-import { HotelEntity } from '../../repositories';
+import { HotelEntity } from '../../../../db/entities/hotel.entity';
 
 @Injectable()
 export class HotelService {

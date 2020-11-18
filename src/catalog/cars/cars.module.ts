@@ -6,21 +6,16 @@ import { UtilsModule } from '../../utils/utils.module';
 import { CommandHandlers } from './commands/handlers';
 import { CarsController } from './controllers/cars/cars.controller';
 import { QueryHandlers } from './queries/handlers';
-import { CarsSubscriber, CarsEntity, CarsRepository } from './repositories';
+import { CarsRepository } from './repositories';
 import { CarsService } from './services/cars/cars.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([CarsRepository, CarsEntity]),
+    TypeOrmModule.forFeature([CarsRepository]),
     CqrsModule,
     UtilsModule,
   ],
   controllers: [CarsController],
-  providers: [
-    CarsService,
-    ...CommandHandlers,
-    ...QueryHandlers,
-    CarsSubscriber,
-  ],
+  providers: [CarsService, ...CommandHandlers, ...QueryHandlers],
 })
 export class CarsModule {}

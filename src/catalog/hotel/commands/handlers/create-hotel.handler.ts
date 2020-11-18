@@ -3,8 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { ErrorValidationService } from '../../../../utils/error-validation';
-import { HotelEntity, HotelRepository } from '../../repositories';
+import { HotelRepository } from '../../repositories';
 import { CreateHotelCommand } from '../impl/create-hotel.command';
+import { HotelEntity } from '../../../../db/entities/hotel.entity';
 
 @CommandHandler(CreateHotelCommand)
 export class CreateHotelHandler implements ICommandHandler<CreateHotelCommand> {

@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { CreateFlightDto, UpdateFlightDto } from '../../dto';
-import { FlightEntity } from '../../repositories';
+import { FlightEntity } from '../../../../db/entities/flight.entity';
 import { FlightService } from '../../services/flight/flight.service';
 import { TextResponseModel } from '../../models/text-response.model';
 
