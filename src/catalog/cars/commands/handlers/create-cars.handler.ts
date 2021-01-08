@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { ErrorValidationService } from '../../../../utils/error-validation';
-import { CarsRepository } from '../../repositories';
+import { CarsRepository } from '../../../../db/repositories';
 import { CreateCarsCommand } from '../impl/create-cars.command';
 import { CarsEntity } from '../../../../db/entities/cars.entity';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 
-import { convertRecordBodyToEsString } from './helpers/convertRecordBodyToEsString';
+import { convertRecordBodyToEsString } from './helpers';
 import { ISearchBody, ISearchResult } from './interfaces';
 
 /**
@@ -73,6 +73,31 @@ export class EsService {
         },
       },
       refresh: true,
+    });
+  }
+  /**
+   * Method that performs Elasticsearch reindex using ID.
+   * Copies documents from a source to a destination.
+   */
+  async reindexById(
+    sourceIndex: string,
+    destIndex: string,
+    documentId: number,
+  ) {
+    await this.elasticsearchService.reindex({
+      wait_for_completion: true,
+      refresh: true,
+      body: {
+        source: {
+          index: sourceIndex,
+          query: {
+            match: { id: documentId },
+          },
+        },
+        dest: {
+          index: destIndex,
+        },
+      },
     });
   }
 }

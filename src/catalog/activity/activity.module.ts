@@ -4,10 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UtilsModule } from '../../utils/utils.module';
 import { CommandHandlers } from './commands/handlers';
-import { ActivityController } from './controllers/activity/activity.controller';
+import { ActivityController } from './controllers/activity.controller';
 import { QueryHandlers } from './queries/handlers';
-import { ActivityRepository } from './repositories';
-import { ActivityService } from './services/activity/activity.service';
+import { ActivityRepository } from '../../db/repositories';
+import { ActivityService } from './services/activity.service';
 
 @Module({
   imports: [

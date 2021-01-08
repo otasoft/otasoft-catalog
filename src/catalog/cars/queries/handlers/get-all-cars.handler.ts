@@ -2,7 +2,7 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { CarsRepository } from '../../repositories';
+import { CarsRepository } from '../../../../db/repositories';
 import { GetAllCarsQuery } from '../impl/get-all-cars.query';
 import { CarsEntity } from '../../../../db/entities/cars.entity';
 

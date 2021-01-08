@@ -4,7 +4,7 @@ import { In } from 'typeorm';
 
 import { EsService } from '../../../../es/es.service';
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { ActivityRepository } from '../../repositories';
+import { ActivityRepository } from '../../../../db/repositories';
 import { GetActivitiesByQueryQuery } from '../impl';
 import { ActivityEntity } from '../../../../db/entities/activity.entity';
 
