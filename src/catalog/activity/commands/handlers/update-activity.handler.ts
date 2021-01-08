@@ -5,7 +5,7 @@ import { ErrorValidationService } from 'src/utils/error-validation';
 import { EsService } from '../../../../es/es.service';
 import { ISearchBody } from '../../../../es/interfaces';
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { ActivityRepository } from '../../repositories';
+import { ActivityRepository } from '../../../../db/repositories';
 import { UpdateActivityCommand } from '../impl';
 import { ActivityEntity } from '../../../../db/entities/activity.entity';
 

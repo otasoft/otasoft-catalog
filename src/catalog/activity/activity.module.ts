@@ -6,7 +6,7 @@ import { UtilsModule } from '../../utils/utils.module';
 import { CommandHandlers } from './commands/handlers';
 import { ActivityController } from './controllers/activity/activity.controller';
 import { QueryHandlers } from './queries/handlers';
-import { ActivityRepository } from './repositories';
+import { ActivityRepository } from '../../db/repositories';
 import { ActivityService } from './services/activity/activity.service';
 
 @Module({
