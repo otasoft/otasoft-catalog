@@ -5,15 +5,15 @@ import {
   CreateActivityCommand,
   DeleteActivityCommand,
   UpdateActivityCommand,
-} from '../../commands/impl';
-import { CreateActivityDto, UpdateActivityDto } from '../../dto';
-import { TextResponseModel } from '../../models/text-response.model';
+} from '../commands/impl';
+import { CreateActivityDto, UpdateActivityDto } from '../dto';
+import { TextResponseModel } from '../models/text-response.model';
 import {
   GetSingleActivityQuery,
   GetAllActivitiesQuery,
   GetActivitiesByQueryQuery,
-} from '../../queries/impl';
-import { ActivityEntity } from '../../../../db/entities/activity.entity';
+} from '../queries/impl';
+import { ActivityEntity } from '../../../db/entities/activity.entity';
 
 @Injectable()
 export class ActivityService {

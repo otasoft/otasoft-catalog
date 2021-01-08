@@ -1,10 +1,10 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
-import { CreateActivityDto, UpdateActivityDto } from '../../dto';
-import { ActivityEntity } from '../../../../db/entities/activity.entity';
-import { ActivityService } from '../../services/activity/activity.service';
-import { TextResponseModel } from '../../models/text-response.model';
+import { CreateActivityDto, UpdateActivityDto } from '../dto';
+import { ActivityEntity } from '../../../db/entities/activity.entity';
+import { ActivityService } from '../services/activity.service';
+import { TextResponseModel } from '../models/text-response.model';
 
 @Controller()
 export class ActivityController {
