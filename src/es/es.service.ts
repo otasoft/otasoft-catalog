@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 
-import { convertRecordBodyToEsString } from './helpers/convertRecordBodyToEsString';
+import { convertRecordBodyToEsString } from './helpers';
 import { ISearchBody, ISearchResult } from './interfaces';
 
 /**
