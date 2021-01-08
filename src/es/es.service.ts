@@ -79,7 +79,11 @@ export class EsService {
    * Method that performs Elasticsearch reindex using ID.
    * Copies documents from a source to a destination.
    */
-  async reindexById(sourceIndex: string, destIndex: string, documentId: number,) {
+  async reindexById(
+    sourceIndex: string,
+    destIndex: string,
+    documentId: number,
+  ) {
     await this.elasticsearchService.reindex({
       wait_for_completion: true,
       refresh: true,
@@ -87,13 +91,13 @@ export class EsService {
         source: {
           index: sourceIndex,
           query: {
-            match: { id: documentId }
-          }
+            match: { id: documentId },
+          },
         },
         dest: {
           index: destIndex,
-        }
-      }
-    })
+        },
+      },
+    });
   }
 }
