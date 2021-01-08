@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { ErrorValidationService } from '../../../../utils/error-validation';
-import { HotelRepository } from '../../repositories';
+import { HotelRepository } from '../../../../db/repositories';
 import { CreateHotelCommand } from '../impl/create-hotel.command';
 import { HotelEntity } from '../../../../db/entities/hotel.entity';
 
