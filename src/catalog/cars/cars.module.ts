@@ -6,7 +6,7 @@ import { UtilsModule } from '../../utils/utils.module';
 import { CommandHandlers } from './commands/handlers';
 import { CarsController } from './controllers/cars/cars.controller';
 import { QueryHandlers } from './queries/handlers';
-import { CarsRepository } from './repositories';
+import { CarsRepository } from '../../db/repositories';
 import { CarsService } from './services/cars/cars.service';
 
 @Module({
