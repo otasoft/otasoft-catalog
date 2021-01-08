@@ -47,7 +47,7 @@ services:
       - db
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
+    image: elasticsearch:${ELK_VERSION}
     container_name: es01
     environment:
       - node.name=es01
@@ -72,7 +72,7 @@ services:
       - proxy
 
   es02:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
+    image: elasticsearch:${ELK_VERSION}
     container_name: es02
     environment:
       - node.name=es02
@@ -94,7 +94,7 @@ services:
       - elastic
 
   es03:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
+    image: elasticsearch:${ELK_VERSION}
     container_name: es03
     environment:
       - node.name=es03
@@ -114,7 +114,7 @@ services:
       - elastic
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:${ELK_VERSION}
+    image: kibana:${ELK_VERSION}
     container_name: kibana
     environment:
       SERVER_NAME: ${KIBANA_SERVER_NAME}
