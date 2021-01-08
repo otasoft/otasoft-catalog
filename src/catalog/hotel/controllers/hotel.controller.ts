@@ -1,10 +1,10 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
-import { CreateHotelDto, UpdateHotelDto } from '../../dto';
-import { HotelEntity } from '../../../../db/entities/hotel.entity';
-import { HotelService } from '../../services/hotel/hotel.service';
-import { TextResponseModel } from '../../models/text-response.model';
+import { CreateHotelDto, UpdateHotelDto } from '../dto';
+import { HotelEntity } from '../../../db/entities/hotel.entity';
+import { HotelService } from '../services/hotel.service';
+import { TextResponseModel } from '../models/text-response.model';
 
 @Controller()
 export class HotelController {

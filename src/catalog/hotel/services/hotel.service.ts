@@ -5,11 +5,11 @@ import {
   CreateHotelCommand,
   UpdateHotelCommand,
   DeleteHotelCommand,
-} from '../../commands/impl';
-import { CreateHotelDto, UpdateHotelDto } from '../../dto';
-import { TextResponseModel } from '../../models/text-response.model';
-import { GetSingleHotelQuery, GetAllHotelsQuery } from '../../queries/impl';
-import { HotelEntity } from '../../../../db/entities/hotel.entity';
+} from '../commands/impl';
+import { CreateHotelDto, UpdateHotelDto } from '../dto';
+import { TextResponseModel } from '../models/text-response.model';
+import { GetSingleHotelQuery, GetAllHotelsQuery } from '../queries/impl';
+import { HotelEntity } from '../../../db/entities/hotel.entity';
 
 @Injectable()
 export class HotelService {
