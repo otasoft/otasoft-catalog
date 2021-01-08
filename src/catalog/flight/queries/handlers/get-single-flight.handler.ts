@@ -2,7 +2,7 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { FlightRepository } from '../../repositories';
+import { FlightRepository } from '../../../../db/repositories';
 import { GetSingleFlightQuery } from '../impl';
 import { FlightEntity } from '../../../../db/entities/flight.entity';
 
