@@ -4,10 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UtilsModule } from '../../utils/utils.module';
 import { CommandHandlers } from './commands/handlers';
-import { FlightController } from './controllers/flight/flight.controller';
+import { FlightController } from './controllers/flight.controller';
 import { QueryHandlers } from './queries/handlers';
 import { FlightRepository } from '../../db/repositories';
-import { FlightService } from './services/flight/flight.service';
+import { FlightService } from './services/flight.service';
 
 @Module({
   imports: [

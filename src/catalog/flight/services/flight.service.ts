@@ -5,11 +5,11 @@ import {
   CreateFlightCommand,
   DeleteFlightCommand,
   UpdateFlightCommand,
-} from '../../commands/impl';
-import { CreateFlightDto, UpdateFlightDto } from '../../dto';
-import { TextResponseModel } from '../../models/text-response.model';
-import { GetSingleFlightQuery, GetAllFlightsQuery } from '../../queries/impl';
-import { FlightEntity } from '../../../../db/entities/flight.entity';
+} from '../commands/impl';
+import { CreateFlightDto, UpdateFlightDto } from '../dto';
+import { TextResponseModel } from '../models/text-response.model';
+import { GetSingleFlightQuery, GetAllFlightsQuery } from '../queries/impl';
+import { FlightEntity } from '../../../db/entities/flight.entity';
 
 @Injectable()
 export class FlightService {
