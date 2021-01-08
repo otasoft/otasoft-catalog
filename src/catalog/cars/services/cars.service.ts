@@ -5,11 +5,11 @@ import {
   CreateCarsCommand,
   UpdateCarsCommand,
   DeleteCarsCommand,
-} from '../../commands/impl';
-import { CreateCarsDto, UpdateCarsDto } from '../../dto';
-import { TextResponseModel } from '../../models/text-response.model';
-import { GetSingleCarQuery, GetAllCarsQuery } from '../../queries/impl';
-import { CarsEntity } from '../../../../db/entities/cars.entity';
+} from '../commands/impl';
+import { CreateCarsDto, UpdateCarsDto } from '../dto';
+import { TextResponseModel } from '../models/text-response.model';
+import { GetSingleCarQuery, GetAllCarsQuery } from '../queries/impl';
+import { CarsEntity } from '../../../db/entities/cars.entity';
 
 @Injectable()
 export class CarsService {
