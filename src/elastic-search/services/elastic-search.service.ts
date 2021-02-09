@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 
-import { convertRecordBodyToEsString } from './helpers';
-import { ISearchBody, ISearchResult } from './interfaces';
+import { convertRecordBodyToEsString } from '../helpers';
+import { ISearchBody, ISearchResult } from '../interfaces';
 
 /**
  * Service containing Elasticsearch methods (i.e. index, search, update).
  */
 @Injectable()
-export class EsService {
+export class ElasticSearchService {
   constructor(private readonly elasticsearchService: ElasticsearchService) {}
   /**
    * Method that indexes Elasticsearch with a new data.

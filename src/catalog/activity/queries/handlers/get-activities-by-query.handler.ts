@@ -2,7 +2,7 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In } from 'typeorm';
 
-import { EsService } from '../../../../es/es.service';
+import { ElasticSearchService } from '../../../../elastic-search/services';
 import { ActivityRepository } from '../../repositories';
 import { GetActivitiesByQueryQuery } from '../impl';
 import { ActivityEntity } from '../../entities';
@@ -14,11 +14,11 @@ export class GetActivitiesByQueryHandler
   constructor(
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
-    private readonly esService: EsService,
+    private readonly elasticSearchService: ElasticSearchService
   ) {}
 
   async execute(query: GetActivitiesByQueryQuery): Promise<ActivityEntity[]> {
-    const resultsFromEs = await this.esService.searchByText(
+    const resultsFromEs = await this.elasticSearchService.searchByText(
       'activity',
       query.query,
     );

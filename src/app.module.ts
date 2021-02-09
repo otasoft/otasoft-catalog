@@ -5,13 +5,13 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { DatabaseModule } from './database/database.module';
 import { CatalogModule } from './catalog/catalog.module';
 import { HealthModule } from './health/health.module';
-import { EsModule } from './es/es.module';
+import { ElasticSearchModule } from './elastic-search/elastic-search.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     CqrsModule,
-    EsModule,
+    ElasticSearchModule,
     DatabaseModule,
     CatalogModule,
     HealthModule,

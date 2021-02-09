@@ -2,8 +2,8 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RpcException } from '@nestjs/microservices';
 
-import { EsService } from '../../../../es/es.service';
-import { ISearchBody } from '../../../../es/interfaces';
+import { ElasticSearchService } from '../../../../elastic-search/services/';
+import { ISearchBody } from '../../../../elastic-search/interfaces';
 import { ActivityRepository } from '../../repositories';
 import { UpdateActivityCommand } from '../impl';
 import { ActivityEntity } from '../../entities';
@@ -15,7 +15,7 @@ export class UpdateActivityHandler
   constructor(
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
-    private readonly esService: EsService,
+    private readonly elasticSearchService: ElasticSearchService,
   ) {}
 
   async execute(command: UpdateActivityCommand): Promise<ActivityEntity> {
@@ -43,7 +43,7 @@ export class UpdateActivityHandler
       description: updatedActivity.description,
     };
 
-    await this.esService.updateRecord('activity', updatedBody);
+    await this.elasticSearchService.updateRecord('activity', updatedBody);
 
     return updatedActivity;
   }

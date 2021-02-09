@@ -2,7 +2,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { EsService } from '../../../../es/es.service';
+import { ElasticSearchService } from '../../../../elastic-search/services';
 import { TextResponseModel } from '../../models/text-response.model';
 import { ActivityRepository } from '../../repositories';
 import { DeleteActivityCommand } from '../impl';
@@ -13,7 +13,7 @@ export class DeleteActivityHandler
   constructor(
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
-    private readonly esService: EsService,
+    private readonly elasticSearchService: ElasticSearchService,
   ) {}
 
   async execute(command: DeleteActivityCommand): Promise<TextResponseModel> {
@@ -26,7 +26,7 @@ export class DeleteActivityHandler
       });
     }
 
-    await this.esService.removeRecordById('activity', command.id);
+    await this.elasticSearchService.removeRecordById('activity', command.id);
 
     return {
       response: `Activity with id #${command.id} successfuly deleted`,

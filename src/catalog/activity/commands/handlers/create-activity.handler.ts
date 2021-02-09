@@ -5,8 +5,8 @@ import { RpcException } from '@nestjs/microservices';
 import { ActivityRepository } from '../../repositories';
 import { ActivityEntity } from '../../entities';
 import { CreateActivityCommand } from '../impl';
-import { EsService } from '../../../../es/es.service';
-import { ISearchBody } from '../../../../es/interfaces';
+import { ElasticSearchService } from '../../../../elastic-search/services';
+import { ISearchBody } from '../../../../elastic-search/interfaces';
 import { validateDbError } from '../../../../database/helpers';
 
 @CommandHandler(CreateActivityCommand)
@@ -15,7 +15,7 @@ export class CreateActivityHandler
   constructor(
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
-    private readonly esService: EsService,
+    private readonly elasticSearchService: ElasticSearchService,
   ) {}
 
   async execute(command: CreateActivityCommand): Promise<ActivityEntity> {
@@ -40,7 +40,7 @@ export class CreateActivityHandler
       description: activity.description,
     };
 
-    this.esService.indexWithData('activity', searchBody);
+    this.elasticSearchService.indexWithData('activity', searchBody);
 
     return activity;
   }
