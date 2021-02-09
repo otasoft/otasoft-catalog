@@ -8,8 +8,7 @@ import { OfferRepository } from '../../../infrastructure/repositories';
 import { DeleteOfferCommand } from '../impl';
 
 @CommandHandler(DeleteOfferCommand)
-export class DeleteOfferHandler
-  implements ICommandHandler<DeleteOfferCommand> {
+export class DeleteOfferHandler implements ICommandHandler<DeleteOfferCommand> {
   constructor(
     @InjectRepository(OfferRepository)
     private readonly offerRepository: OfferRepository,

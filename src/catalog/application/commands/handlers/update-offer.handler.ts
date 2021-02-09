@@ -10,8 +10,7 @@ import { OfferEntity } from '../../../infrastructure/entities';
 import { validateDbError } from '../../../../database/helpers';
 
 @CommandHandler(UpdateOfferCommand)
-export class UpdateOfferHandler
-  implements ICommandHandler<UpdateOfferCommand> {
+export class UpdateOfferHandler implements ICommandHandler<UpdateOfferCommand> {
   constructor(
     @InjectRepository(OfferRepository)
     private readonly offerRepository: OfferRepository,

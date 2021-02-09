@@ -7,8 +7,7 @@ import { GetAllOffersQuery } from '../impl/get-all-offers.query';
 import { OfferEntity } from '../../../infrastructure/entities';
 
 @QueryHandler(GetAllOffersQuery)
-export class GetAllOffersHandler
-  implements IQueryHandler<GetAllOffersQuery> {
+export class GetAllOffersHandler implements IQueryHandler<GetAllOffersQuery> {
   constructor(
     @InjectRepository(OfferRepository)
     private readonly offerRepository: OfferRepository,

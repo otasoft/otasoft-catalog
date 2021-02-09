@@ -14,7 +14,7 @@ export class GetOffersByQueryHandler
   constructor(
     @InjectRepository(OfferRepository)
     private readonly offerRepository: OfferRepository,
-    private readonly elasticSearchService: ElasticSearchService
+    private readonly elasticSearchService: ElasticSearchService,
   ) {}
 
   async execute(query: GetOffersByQueryQuery): Promise<OfferEntity[]> {

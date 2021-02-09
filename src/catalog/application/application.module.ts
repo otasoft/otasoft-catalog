@@ -10,11 +10,8 @@ import { OfferService } from './services';
 
 @Global()
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([OfferRepository]),
-        CqrsModule,
-    ],
-    controllers: [OfferController],
-    providers: [OfferService, ...CommandHandlers, ...QueryHandlers],
+  imports: [TypeOrmModule.forFeature([OfferRepository]), CqrsModule],
+  controllers: [OfferController],
+  providers: [OfferService, ...CommandHandlers, ...QueryHandlers],
 })
 export class ApplicationModule {}

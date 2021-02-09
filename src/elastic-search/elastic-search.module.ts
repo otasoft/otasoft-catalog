@@ -9,7 +9,9 @@ import { ElasticSearchService } from './services';
  */
 @Global()
 @Module({
-  imports: [ElasticsearchModule.registerAsync({ useClass: ElasticSearchConfigService })],
+  imports: [
+    ElasticsearchModule.registerAsync({ useClass: ElasticSearchConfigService }),
+  ],
   providers: [ElasticSearchService],
   exports: [ElasticsearchModule, ElasticSearchService],
 })

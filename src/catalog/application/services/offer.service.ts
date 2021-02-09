@@ -34,20 +34,12 @@ export class OfferService {
     return this.queryBus.execute(new GetOffersByQueryQuery(query));
   }
 
-  async createOffer(
-    createofferDto: CreateOfferDto,
-  ): Promise<OfferEntity> {
-    return this.commandBus.execute(
-      new CreateOfferCommand(createofferDto),
-    );
+  async createOffer(createofferDto: CreateOfferDto): Promise<OfferEntity> {
+    return this.commandBus.execute(new CreateOfferCommand(createofferDto));
   }
 
-  async updateOffer(
-    updateofferDto: UpdateOfferDto,
-  ): Promise<OfferEntity> {
-    return this.commandBus.execute(
-      new UpdateOfferCommand(updateofferDto),
-    );
+  async updateOffer(updateofferDto: UpdateOfferDto): Promise<OfferEntity> {
+    return this.commandBus.execute(new UpdateOfferCommand(updateofferDto));
   }
 
   async deleteOffer(id: number): Promise<TextResponseModel> {

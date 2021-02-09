@@ -6,6 +6,6 @@ import { OfferRepository } from './repositories';
 
 @Global()
 @Module({
-    imports:[TypeOrmModule.forFeature([OfferRepository, OfferEntity])],
+  imports: [TypeOrmModule.forFeature([OfferRepository, OfferEntity])],
 })
 export class InfrastructureModule {}

@@ -10,8 +10,7 @@ import { ISearchBody } from '../../../../elastic-search/interfaces';
 import { validateDbError } from '../../../../database/helpers';
 
 @CommandHandler(CreateOfferCommand)
-export class CreateOfferHandler
-  implements ICommandHandler<CreateOfferCommand> {
+export class CreateOfferHandler implements ICommandHandler<CreateOfferCommand> {
   constructor(
     @InjectRepository(OfferRepository)
     private readonly offerRepository: OfferRepository,

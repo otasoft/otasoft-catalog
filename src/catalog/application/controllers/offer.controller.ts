@@ -26,16 +26,12 @@ export class OfferController {
   }
 
   @MessagePattern({ role: 'offer', cmd: 'create' })
-  async createOffer(
-    createOfferDto: CreateOfferDto,
-  ): Promise<OfferEntity> {
+  async createOffer(createOfferDto: CreateOfferDto): Promise<OfferEntity> {
     return this.offerService.createOffer(createOfferDto);
   }
 
   @MessagePattern({ role: 'offer', cmd: 'update' })
-  async updateOffer(
-    updateOfferDto: UpdateOfferDto,
-  ): Promise<OfferEntity> {
+  async updateOffer(updateOfferDto: UpdateOfferDto): Promise<OfferEntity> {
     return this.offerService.updateOffer(updateOfferDto);
   }
 

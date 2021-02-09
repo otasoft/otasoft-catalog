@@ -15,9 +15,7 @@ export class GetSingleOfferHandler
   ) {}
 
   async execute(query: GetSingleOfferQuery): Promise<OfferEntity> {
-    const offer: OfferEntity = await this.offerRepository.findOne(
-      query.id,
-    );
+    const offer: OfferEntity = await this.offerRepository.findOne(query.id);
 
     if (!offer)
       throw new RpcException({
