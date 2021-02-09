@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CatalogSubscribers } from './subscribers';
+import { ActivitySubscriber } from './subscribers';
 import { TypeOrmConfigService } from './config';
 
 @Module({
   imports: [TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService })],
-  providers: [...CatalogSubscribers],
+  providers: [ActivitySubscriber],
 })
 export class DatabaseModule {}
