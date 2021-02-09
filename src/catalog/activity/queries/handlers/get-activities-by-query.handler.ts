@@ -23,7 +23,7 @@ export class GetActivitiesByQueryHandler
       'activity',
       query.query,
     );
-    const ids = resultsFromEs.map(result => result.id);
+    const ids = resultsFromEs.map((result) => result.id);
 
     if (!ids.length)
       this.rpcExceptionService.throwNotFound(

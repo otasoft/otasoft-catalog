@@ -37,7 +37,7 @@ export class EsService {
       },
     });
     const hits = body.hits.hits;
-    return hits.map(hit => hit._source);
+    return hits.map((hit) => hit._source);
   }
   /**
    * Method that updates certain record by ID in Elasticsearch based on updated record body.

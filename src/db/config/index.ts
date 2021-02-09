@@ -1,1 +1,1 @@
-export * from './db-async-config';
+export * from './type-orm-config.service';

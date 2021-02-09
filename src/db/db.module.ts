@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CatalogSubscribers } from './subscribers';
-import { dbAsyncConfig } from './config';
+import { TypeOrmConfigService } from './config';
 
 @Module({
-  imports: [TypeOrmModule.forRootAsync(dbAsyncConfig)],
+  imports: [TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService })],
   providers: [...CatalogSubscribers],
 })
 export class DbModule {}
