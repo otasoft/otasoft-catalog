@@ -1,8 +1,8 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { EsService } from '../../../../es/es.service';
-import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { TextResponseModel } from '../../models/text-response.model';
 import { ActivityRepository } from '../../repositories';
 import { DeleteActivityCommand } from '../impl';
@@ -13,7 +13,6 @@ export class DeleteActivityHandler
   constructor(
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
-    private readonly rpcExceptionService: RpcExceptionService,
     private readonly esService: EsService,
   ) {}
 
@@ -21,10 +20,9 @@ export class DeleteActivityHandler
     try {
       await this.activityRepository.delete(command.id);
     } catch (error) {
-      console.log(error.code);
-      this.rpcExceptionService.throwCatchedException({
-        code: error.code,
-        message: 'Cannot remove activity',
+      throw new RpcException({
+        statusCode: error.code,
+        errorStatus: 'Cannot remove activity',
       });
     }
 

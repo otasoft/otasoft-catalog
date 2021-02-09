@@ -3,10 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In } from 'typeorm';
 
 import { EsService } from '../../../../es/es.service';
-import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { ActivityRepository } from '../../repositories';
 import { GetActivitiesByQueryQuery } from '../impl';
 import { ActivityEntity } from '../../entities';
+import { RpcException } from '@nestjs/microservices';
 
 @QueryHandler(GetActivitiesByQueryQuery)
 export class GetActivitiesByQueryHandler
@@ -14,7 +14,6 @@ export class GetActivitiesByQueryHandler
   constructor(
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
-    private readonly rpcExceptionService: RpcExceptionService,
     private readonly esService: EsService,
   ) {}
 
@@ -26,18 +25,20 @@ export class GetActivitiesByQueryHandler
     const ids = resultsFromEs.map((result) => result.id);
 
     if (!ids.length)
-      this.rpcExceptionService.throwNotFound(
-        `Activities not found by query ${query.query}`,
-      );
+      throw new RpcException({
+        statusCode: 404,
+        errorStatus: `Activities not found by query ${query.query}`,
+      });
 
     const activities = await this.activityRepository.find({
       where: { activity_id: In(ids) },
     });
 
     if (!activities.length)
-      this.rpcExceptionService.throwNotFound(
-        'Activities found in ES but not found in DB',
-      );
+      throw new RpcException({
+        statusCode: 404,
+        errorStatus: 'Activities found in ES but not found in DB',
+      });
 
     return activities;
   }

@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
+import { RpcException } from '@nestjs/microservices';
 
-import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { ActivityRepository } from '../../repositories';
 import { GetAllActivitiesQuery } from '../impl/get-all-activities.query';
 import { ActivityEntity } from '../../entities';
@@ -12,7 +12,6 @@ export class GetAllActivitiesHandler
   constructor(
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
-    private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
   // Currently query is not used, but in the future, requesting all activities will have some params like pagination, order, etc.
@@ -20,7 +19,10 @@ export class GetAllActivitiesHandler
     const activities: ActivityEntity[] = await this.activityRepository.find();
 
     if (!activities.length)
-      this.rpcExceptionService.throwNotFound('Activities not found');
+      throw new RpcException({
+        statusCode: 404,
+        errorStatus: 'Activities not found',
+      });
 
     return activities;
   }

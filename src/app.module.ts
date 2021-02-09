@@ -5,7 +5,6 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { DatabaseModule } from './database/database.module';
 import { CatalogModule } from './catalog/catalog.module';
 import { HealthModule } from './health/health.module';
-import { UtilsModule } from './utils/utils.module';
 import { EsModule } from './es/es.module';
 
 @Module({
@@ -16,7 +15,6 @@ import { EsModule } from './es/es.module';
     DatabaseModule,
     CatalogModule,
     HealthModule,
-    UtilsModule,
   ],
 })
 export class AppModule {}

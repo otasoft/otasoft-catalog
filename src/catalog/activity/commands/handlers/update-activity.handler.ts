@@ -1,9 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
+import { RpcException } from '@nestjs/microservices';
 
 import { EsService } from '../../../../es/es.service';
 import { ISearchBody } from '../../../../es/interfaces';
-import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { ActivityRepository } from '../../repositories';
 import { UpdateActivityCommand } from '../impl';
 import { ActivityEntity } from '../../entities';
@@ -15,7 +15,6 @@ export class UpdateActivityHandler
   constructor(
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
-    private readonly rpcExceptionService: RpcExceptionService,
     private readonly esService: EsService,
   ) {}
 
@@ -26,9 +25,12 @@ export class UpdateActivityHandler
         description: command.updateActivityDto.updateActivityDto.description,
       });
     } catch (error) {
-      const errorObject = validateDbError(error.code);
+      const { code, message } = validateDbError(error.code);
 
-      this.rpcExceptionService.throwCatchedException(errorObject);
+      throw new RpcException({
+        statusCode: code,
+        errorStatus: message,
+      });
     }
 
     const updatedActivity = await this.activityRepository.findOne(
