@@ -4,21 +4,21 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { ElasticSearchService } from '../../../../elastic-search/services';
 import { TextResponseModel } from '../../models';
-import { ActivityRepository } from '../../../infrastructure/repositories';
+import { OfferRepository } from '../../../infrastructure/repositories';
 import { DeleteActivityCommand } from '../impl';
 
 @CommandHandler(DeleteActivityCommand)
 export class DeleteActivityHandler
   implements ICommandHandler<DeleteActivityCommand> {
   constructor(
-    @InjectRepository(ActivityRepository)
-    private readonly activityRepository: ActivityRepository,
+    @InjectRepository(OfferRepository)
+    private readonly offerRepository: OfferRepository,
     private readonly elasticSearchService: ElasticSearchService,
   ) {}
 
   async execute(command: DeleteActivityCommand): Promise<TextResponseModel> {
     try {
-      await this.activityRepository.delete(command.id);
+      await this.offerRepository.delete(command.id);
     } catch (error) {
       throw new RpcException({
         statusCode: error.code,

@@ -1,1 +1,1 @@
-export * from './activity.entity';
+export * from './offer.entity';

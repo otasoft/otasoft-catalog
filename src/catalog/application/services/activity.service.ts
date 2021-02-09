@@ -13,7 +13,7 @@ import {
   GetAllActivitiesQuery,
   GetActivitiesByQueryQuery,
 } from '../queries/impl';
-import { ActivityEntity } from '../../infrastructure/entities';
+import { OfferEntity } from '../../infrastructure/entities';
 
 @Injectable()
 export class ActivityService {
@@ -22,21 +22,21 @@ export class ActivityService {
     private readonly commandBus: CommandBus,
   ) {}
 
-  async getSingleActivity(id: number): Promise<ActivityEntity> {
+  async getSingleActivity(id: number): Promise<OfferEntity> {
     return this.queryBus.execute(new GetSingleActivityQuery(id));
   }
 
-  async getAllActivities(): Promise<ActivityEntity[]> {
+  async getAllActivities(): Promise<OfferEntity[]> {
     return this.queryBus.execute(new GetAllActivitiesQuery());
   }
 
-  async getActivitiesByQuery(query: string): Promise<ActivityEntity[]> {
+  async getActivitiesByQuery(query: string): Promise<OfferEntity[]> {
     return this.queryBus.execute(new GetActivitiesByQueryQuery(query));
   }
 
   async createActivity(
     createActivityDto: CreateActivityDto,
-  ): Promise<ActivityEntity> {
+  ): Promise<OfferEntity> {
     return this.commandBus.execute(
       new CreateActivityCommand(createActivityDto),
     );
@@ -44,7 +44,7 @@ export class ActivityService {
 
   async updateActivity(
     updateActivityDto: UpdateActivityDto,
-  ): Promise<ActivityEntity> {
+  ): Promise<OfferEntity> {
     return this.commandBus.execute(
       new UpdateActivityCommand(updateActivityDto),
     );

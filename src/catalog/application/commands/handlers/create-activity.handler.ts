@@ -2,8 +2,8 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RpcException } from '@nestjs/microservices';
 
-import { ActivityRepository } from '../../../infrastructure/repositories';
-import { ActivityEntity } from '../../../infrastructure/entities';
+import { OfferRepository } from '../../../infrastructure/repositories';
+import { OfferEntity } from '../../../infrastructure/entities';
 import { CreateActivityCommand } from '../impl';
 import { ElasticSearchService } from '../../../../elastic-search/services';
 import { ISearchBody } from '../../../../elastic-search/interfaces';
@@ -13,18 +13,18 @@ import { validateDbError } from '../../../../database/helpers';
 export class CreateActivityHandler
   implements ICommandHandler<CreateActivityCommand> {
   constructor(
-    @InjectRepository(ActivityRepository)
-    private readonly activityRepository: ActivityRepository,
+    @InjectRepository(OfferRepository)
+    private readonly offerRepository: OfferRepository,
     private readonly elasticSearchService: ElasticSearchService,
   ) {}
 
-  async execute(command: CreateActivityCommand): Promise<ActivityEntity> {
-    const activity: ActivityEntity = await this.activityRepository.create({
+  async execute(command: CreateActivityCommand): Promise<OfferEntity> {
+    const offer: OfferEntity = await this.offerRepository.create({
       ...command.createActivityDto,
     });
 
     try {
-      await activity.save();
+      await this.offerRepository.save(offer);
     } catch (error) {
       const { code, message } = validateDbError(error.code);
 
@@ -35,13 +35,13 @@ export class CreateActivityHandler
     }
 
     const searchBody: ISearchBody = {
-      id: activity.activity_id,
-      name: activity.name,
-      description: activity.description,
+      id: offer.offer_id,
+      name: offer.name,
+      description: offer.description,
     };
 
     this.elasticSearchService.indexWithData('activity', searchBody);
 
-    return activity;
+    return offer;
   }
 }

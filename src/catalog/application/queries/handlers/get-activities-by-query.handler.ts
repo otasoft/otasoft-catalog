@@ -3,21 +3,21 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In } from 'typeorm';
 
 import { ElasticSearchService } from '../../../../elastic-search/services';
-import { ActivityRepository } from '../../../infrastructure/repositories';
+import { OfferRepository } from '../../../infrastructure/repositories';
 import { GetActivitiesByQueryQuery } from '../impl';
-import { ActivityEntity } from '../../../infrastructure/entities';
+import { OfferEntity } from '../../../infrastructure/entities';
 import { RpcException } from '@nestjs/microservices';
 
 @QueryHandler(GetActivitiesByQueryQuery)
 export class GetActivitiesByQueryHandler
   implements IQueryHandler<GetActivitiesByQueryQuery> {
   constructor(
-    @InjectRepository(ActivityRepository)
-    private readonly activityRepository: ActivityRepository,
+    @InjectRepository(OfferRepository)
+    private readonly offerRepository: OfferRepository,
     private readonly elasticSearchService: ElasticSearchService
   ) {}
 
-  async execute(query: GetActivitiesByQueryQuery): Promise<ActivityEntity[]> {
+  async execute(query: GetActivitiesByQueryQuery): Promise<OfferEntity[]> {
     const resultsFromEs = await this.elasticSearchService.searchByText(
       'activity',
       query.query,
@@ -30,7 +30,7 @@ export class GetActivitiesByQueryHandler
         errorStatus: `Activities not found by query ${query.query}`,
       });
 
-    const activities = await this.activityRepository.find({
+    const activities = await this.offerRepository.find({
       where: { activity_id: In(ids) },
     });
 

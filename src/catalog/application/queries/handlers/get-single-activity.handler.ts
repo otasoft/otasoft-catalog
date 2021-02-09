@@ -2,29 +2,29 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RpcException } from '@nestjs/microservices';
 
-import { ActivityRepository } from '../../../infrastructure/repositories';
+import { OfferRepository } from '../../../infrastructure/repositories';
 import { GetSingleActivityQuery } from '../impl';
-import { ActivityEntity } from '../../../infrastructure/entities';
+import { OfferEntity } from '../../../infrastructure/entities';
 
 @QueryHandler(GetSingleActivityQuery)
 export class GetSingleActivityHandler
   implements IQueryHandler<GetSingleActivityQuery> {
   constructor(
-    @InjectRepository(ActivityRepository)
-    private readonly activityRepository: ActivityRepository,
+    @InjectRepository(OfferRepository)
+    private readonly offerRepository: OfferRepository,
   ) {}
 
-  async execute(query: GetSingleActivityQuery): Promise<ActivityEntity> {
-    const activity: ActivityEntity = await this.activityRepository.findOne(
+  async execute(query: GetSingleActivityQuery): Promise<OfferEntity> {
+    const offer: OfferEntity = await this.offerRepository.findOne(
       query.id,
     );
 
-    if (!activity)
+    if (!offer)
       throw new RpcException({
         statusCode: 404,
         errorStatus: `Activity with ID ${query.id} not found`,
       });
 
-    return activity;
+    return offer;
   }
 }

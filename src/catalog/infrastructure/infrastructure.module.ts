@@ -1,11 +1,11 @@
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { ActivityEntity } from './entities';
-import { ActivityRepository } from './repositories';
+import { OfferEntity } from './entities';
+import { OfferRepository } from './repositories';
 
 @Global()
 @Module({
-    imports:[TypeOrmModule.forFeature([ActivityRepository, ActivityEntity])],
+    imports:[TypeOrmModule.forFeature([OfferRepository, OfferEntity])],
 })
 export class InfrastructureModule {}

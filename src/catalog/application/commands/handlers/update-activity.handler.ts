@@ -4,23 +4,23 @@ import { RpcException } from '@nestjs/microservices';
 
 import { ElasticSearchService } from '../../../../elastic-search/services';
 import { ISearchBody } from '../../../../elastic-search/interfaces';
-import { ActivityRepository } from '../../../infrastructure/repositories';
+import { OfferRepository } from '../../../infrastructure/repositories';
 import { UpdateActivityCommand } from '../impl';
-import { ActivityEntity } from '../../../infrastructure/entities';
+import { OfferEntity } from '../../../infrastructure/entities';
 import { validateDbError } from '../../../../database/helpers';
 
 @CommandHandler(UpdateActivityCommand)
 export class UpdateActivityHandler
   implements ICommandHandler<UpdateActivityCommand> {
   constructor(
-    @InjectRepository(ActivityRepository)
-    private readonly activityRepository: ActivityRepository,
+    @InjectRepository(OfferRepository)
+    private readonly offerRepository: OfferRepository,
     private readonly elasticSearchService: ElasticSearchService,
   ) {}
 
-  async execute(command: UpdateActivityCommand): Promise<ActivityEntity> {
+  async execute(command: UpdateActivityCommand): Promise<OfferEntity> {
     try {
-      await this.activityRepository.update(command.updateActivityDto.id, {
+      await this.offerRepository.update(command.updateActivityDto.id, {
         name: command.updateActivityDto.updateActivityDto.name,
         description: command.updateActivityDto.updateActivityDto.description,
       });
@@ -33,12 +33,12 @@ export class UpdateActivityHandler
       });
     }
 
-    const updatedActivity = await this.activityRepository.findOne(
+    const updatedActivity = await this.offerRepository.findOne(
       command.updateActivityDto.id,
     );
 
     const updatedBody: ISearchBody = {
-      id: updatedActivity.activity_id,
+      id: updatedActivity.offer_id,
       name: updatedActivity.name,
       description: updatedActivity.description,
     };

@@ -8,9 +8,9 @@ import {
 
 @Entity()
 @Unique(['name'])
-export class ActivityEntity extends BaseEntity {
+export class OfferEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
-  activity_id: number;
+  offer_id: number;
 
   @Column()
   name: string;

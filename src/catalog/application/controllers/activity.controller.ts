@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { CreateActivityDto, UpdateActivityDto } from '../dto';
-import { ActivityEntity } from '../../infrastructure/entities';
+import { OfferEntity } from '../../infrastructure/entities';
 import { ActivityService } from '../services/activity.service';
 import { TextResponseModel } from '../models';
 
@@ -11,31 +11,31 @@ export class ActivityController {
   constructor(private readonly activityService: ActivityService) {}
 
   @MessagePattern({ role: 'activity', cmd: 'getSingle' })
-  async getSingleActivity(id: number): Promise<ActivityEntity> {
+  async getSingleActivity(id: number): Promise<OfferEntity> {
     return this.activityService.getSingleActivity(id);
   }
 
   @MessagePattern({ role: 'activity', cmd: 'getAll' })
-  async getAllActivities(): Promise<ActivityEntity[]> {
+  async getAllActivities(): Promise<OfferEntity[]> {
     return this.activityService.getAllActivities();
   }
 
   @MessagePattern({ role: 'activity', cmd: 'getActivityByQuery' })
-  async getActivitiesByQuery(query: string): Promise<ActivityEntity[]> {
+  async getActivitiesByQuery(query: string): Promise<OfferEntity[]> {
     return this.activityService.getActivitiesByQuery(query);
   }
 
   @MessagePattern({ role: 'activity', cmd: 'create' })
   async createActivity(
     createActivityDto: CreateActivityDto,
-  ): Promise<ActivityEntity> {
+  ): Promise<OfferEntity> {
     return this.activityService.createActivity(createActivityDto);
   }
 
   @MessagePattern({ role: 'activity', cmd: 'update' })
   async updateActivity(
     updateActivityDto: UpdateActivityDto,
-  ): Promise<ActivityEntity> {
+  ): Promise<OfferEntity> {
     return this.activityService.updateActivity(updateActivityDto);
   }
 
