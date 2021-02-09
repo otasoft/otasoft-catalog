@@ -1,1 +1,1 @@
-export * from './activity.subscriber';
+export * from './offer.subscriber';
