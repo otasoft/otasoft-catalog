@@ -6,7 +6,7 @@ import { EsService } from '../../../../es/es.service';
 import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { ActivityRepository } from '../../repositories';
 import { GetActivitiesByQueryQuery } from '../impl';
-import { ActivityEntity } from '../../../../db/entities/activity.entity';
+import { ActivityEntity } from '../../entities';
 
 @QueryHandler(GetActivitiesByQueryQuery)
 export class GetActivitiesByQueryHandler

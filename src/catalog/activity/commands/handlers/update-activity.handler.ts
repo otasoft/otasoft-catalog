@@ -7,7 +7,7 @@ import { ISearchBody } from '../../../../es/interfaces';
 import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { ActivityRepository } from '../../repositories';
 import { UpdateActivityCommand } from '../impl';
-import { ActivityEntity } from '../../../../db/entities/activity.entity';
+import { ActivityEntity } from '../../entities';
 
 @CommandHandler(UpdateActivityCommand)
 export class UpdateActivityHandler

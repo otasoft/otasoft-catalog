@@ -6,7 +6,7 @@ import {
   UpdateEvent,
 } from 'typeorm';
 
-import { ActivityEntity } from '../entities/activity.entity';
+import { ActivityEntity } from '../../catalog/activity/entities';
 
 @EventSubscriber()
 export class ActivitySubscriber
