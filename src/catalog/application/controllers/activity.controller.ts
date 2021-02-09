@@ -4,7 +4,7 @@ import { MessagePattern } from '@nestjs/microservices';
 import { CreateActivityDto, UpdateActivityDto } from '../dto';
 import { ActivityEntity } from '../../infrastructure/entities';
 import { ActivityService } from '../services/activity.service';
-import { TextResponseModel } from '../models/text-response.model';
+import { TextResponseModel } from '../models';
 
 @Controller()
 export class ActivityController {

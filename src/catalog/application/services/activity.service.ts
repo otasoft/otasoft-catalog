@@ -7,7 +7,7 @@ import {
   UpdateActivityCommand,
 } from '../commands/impl';
 import { CreateActivityDto, UpdateActivityDto } from '../dto';
-import { TextResponseModel } from '../models/text-response.model';
+import { TextResponseModel } from '../models';
 import {
   GetSingleActivityQuery,
   GetAllActivitiesQuery,

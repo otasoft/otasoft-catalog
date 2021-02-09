@@ -3,7 +3,7 @@ import { RpcException } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { ElasticSearchService } from '../../../../elastic-search/services';
-import { TextResponseModel } from '../../models/text-response.model';
+import { TextResponseModel } from '../../models';
 import { ActivityRepository } from '../../../infrastructure/repositories';
 import { DeleteActivityCommand } from '../impl';
 
