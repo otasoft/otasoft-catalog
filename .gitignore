@@ -35,11 +35,11 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # Auth
-/src/security/secrets/.htpasswd
+config/.htpasswd
 
 # SSL
-/src/security/secrets/private-key.key
-/src/security/secrets/public-cert.crt
+config/private-key.key
+config/public-cert.crt
 
 # DB
 replication/master/data
