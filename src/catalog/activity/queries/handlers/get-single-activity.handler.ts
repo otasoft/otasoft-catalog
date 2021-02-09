@@ -2,9 +2,9 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RpcException } from '@nestjs/microservices';
 
-import { ActivityRepository } from '../../repositories';
+import { ActivityRepository } from '../../../infrastructure/repositories';
 import { GetSingleActivityQuery } from '../impl';
-import { ActivityEntity } from '../../entities';
+import { ActivityEntity } from '../../../infrastructure/entities';
 
 @QueryHandler(GetSingleActivityQuery)
 export class GetSingleActivityHandler

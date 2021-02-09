@@ -4,9 +4,9 @@ import { RpcException } from '@nestjs/microservices';
 
 import { ElasticSearchService } from '../../../../elastic-search/services/';
 import { ISearchBody } from '../../../../elastic-search/interfaces';
-import { ActivityRepository } from '../../repositories';
+import { ActivityRepository } from '../../../infrastructure/repositories';
 import { UpdateActivityCommand } from '../impl';
-import { ActivityEntity } from '../../entities';
+import { ActivityEntity } from '../../../infrastructure/entities';
 import { validateDbError } from '../../../../database/helpers';
 
 @CommandHandler(UpdateActivityCommand)

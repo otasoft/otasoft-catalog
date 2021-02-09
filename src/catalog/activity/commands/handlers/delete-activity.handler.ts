@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { ElasticSearchService } from '../../../../elastic-search/services';
 import { TextResponseModel } from '../../models/text-response.model';
-import { ActivityRepository } from '../../repositories';
+import { ActivityRepository } from '../../../infrastructure/repositories';
 import { DeleteActivityCommand } from '../impl';
 
 @CommandHandler(DeleteActivityCommand)

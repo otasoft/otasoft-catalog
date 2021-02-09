@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { CreateActivityDto, UpdateActivityDto } from '../dto';
-import { ActivityEntity } from '../entities';
+import { ActivityEntity } from '../../infrastructure/entities';
 import { ActivityService } from '../services/activity.service';
 import { TextResponseModel } from '../models/text-response.model';
 

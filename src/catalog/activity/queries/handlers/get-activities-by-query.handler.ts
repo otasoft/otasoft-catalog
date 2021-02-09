@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In } from 'typeorm';
 
 import { ElasticSearchService } from '../../../../elastic-search/services';
-import { ActivityRepository } from '../../repositories';
+import { ActivityRepository } from '../../../infrastructure/repositories';
 import { GetActivitiesByQueryQuery } from '../impl';
-import { ActivityEntity } from '../../entities';
+import { ActivityEntity } from '../../../infrastructure/entities';
 import { RpcException } from '@nestjs/microservices';
 
 @QueryHandler(GetActivitiesByQueryQuery)

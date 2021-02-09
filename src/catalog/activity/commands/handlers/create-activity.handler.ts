@@ -2,8 +2,8 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RpcException } from '@nestjs/microservices';
 
-import { ActivityRepository } from '../../repositories';
-import { ActivityEntity } from '../../entities';
+import { ActivityRepository } from '../../../infrastructure/repositories';
+import { ActivityEntity } from '../../../infrastructure/entities';
 import { CreateActivityCommand } from '../impl';
 import { ElasticSearchService } from '../../../../elastic-search/services';
 import { ISearchBody } from '../../../../elastic-search/interfaces';
