@@ -2,9 +2,9 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { HotelRepository } from '../../../../db/repositories';
+import { HotelRepository } from '../../../../database/repositories';
 import { UpdateHotelCommand } from '../impl';
-import { HotelEntity } from '../../../../db/entities/hotel.entity';
+import { HotelEntity } from '../../../../database/entities/hotel.entity';
 
 @CommandHandler(UpdateHotelCommand)
 export class UpdateHotelHandler implements ICommandHandler<UpdateHotelCommand> {

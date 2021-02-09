@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { ErrorValidationService } from '../../../../utils/error-validation';
-import { FlightRepository } from '../../../../db/repositories';
+import { FlightRepository } from '../../../../database/repositories';
 import { CreateFlightCommand } from '../impl';
-import { FlightEntity } from '../../../../db/entities/flight.entity';
+import { FlightEntity } from '../../../../database/entities/flight.entity';
 
 @CommandHandler(CreateFlightCommand)
 export class CreateFlightHandler

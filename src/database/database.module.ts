@@ -8,4 +8,4 @@ import { TypeOrmConfigService } from './config';
   imports: [TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService })],
   providers: [...CatalogSubscribers],
 })
-export class DbModule {}
+export class DatabaseModule {}

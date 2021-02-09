@@ -6,7 +6,7 @@ import { UtilsModule } from '../../utils/utils.module';
 import { CommandHandlers } from './commands/handlers';
 import { HotelController } from './controllers/hotel.controller';
 import { QueryHandlers } from './queries/handlers';
-import { HotelRepository } from '../../db/repositories';
+import { HotelRepository } from '../../database/repositories';
 import { HotelService } from './services/hotel.service';
 
 @Module({

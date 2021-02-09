@@ -2,9 +2,9 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { HotelRepository } from '../../../../db/repositories';
+import { HotelRepository } from '../../../../database/repositories';
 import { GetAllHotelsQuery } from '../impl/get-all-hotels.query';
-import { HotelEntity } from '../../../../db/entities/hotel.entity';
+import { HotelEntity } from '../../../../database/entities/hotel.entity';
 
 @QueryHandler(GetAllHotelsQuery)
 export class GetAllHotelsHandler implements IQueryHandler<GetAllHotelsQuery> {

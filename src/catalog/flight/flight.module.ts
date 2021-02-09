@@ -6,7 +6,7 @@ import { UtilsModule } from '../../utils/utils.module';
 import { CommandHandlers } from './commands/handlers';
 import { FlightController } from './controllers/flight.controller';
 import { QueryHandlers } from './queries/handlers';
-import { FlightRepository } from '../../db/repositories';
+import { FlightRepository } from '../../database/repositories';
 import { FlightService } from './services/flight.service';
 
 @Module({

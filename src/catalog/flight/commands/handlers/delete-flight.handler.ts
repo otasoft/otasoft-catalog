@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { TextResponseModel } from '../../models/text-response.model';
-import { FlightRepository } from '../../../../db/repositories';
+import { FlightRepository } from '../../../../database/repositories';
 import { DeleteFlightCommand } from '../impl';
 
 @CommandHandler(DeleteFlightCommand)

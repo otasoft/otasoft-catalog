@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { ErrorValidationService } from '../../../../utils/error-validation';
-import { CarsRepository } from '../../../../db/repositories';
+import { CarsRepository } from '../../../../database/repositories';
 import { CreateCarsCommand } from '../impl/create-cars.command';
-import { CarsEntity } from '../../../../db/entities/cars.entity';
+import { CarsEntity } from '../../../../database/entities/cars.entity';
 
 @CommandHandler(CreateCarsCommand)
 export class CreateCarsHandler implements ICommandHandler<CreateCarsCommand> {

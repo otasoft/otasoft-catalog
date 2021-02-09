@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
 import { TextResponseModel } from '../../models/text-response.model';
-import { HotelRepository } from '../../../../db/repositories';
+import { HotelRepository } from '../../../../database/repositories';
 import { DeleteHotelCommand } from '../impl';
 
 @CommandHandler(DeleteHotelCommand)
