@@ -2,17 +2,16 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { ErrorValidationService } from '../../../../utils/error-validation';
 import { HotelRepository } from '../../../../database/repositories';
 import { CreateHotelCommand } from '../impl/create-hotel.command';
 import { HotelEntity } from '../../../../database/entities/hotel.entity';
+import { validateDbError } from '../../../../database/helpers';
 
 @CommandHandler(CreateHotelCommand)
 export class CreateHotelHandler implements ICommandHandler<CreateHotelCommand> {
   constructor(
     @InjectRepository(HotelRepository)
     private readonly hotelRepository: HotelRepository,
-    private readonly errorValidationService: ErrorValidationService,
     private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
@@ -25,7 +24,7 @@ export class CreateHotelHandler implements ICommandHandler<CreateHotelCommand> {
     try {
       await hotel.save();
     } catch (error) {
-      const errorObject = this.errorValidationService.validateError(error.code);
+      const errorObject = validateDbError(error.code);
 
       this.rpcExceptionService.throwCatchedException(errorObject);
     }

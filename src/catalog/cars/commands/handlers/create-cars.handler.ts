@@ -2,17 +2,16 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { ErrorValidationService } from '../../../../utils/error-validation';
 import { CarsRepository } from '../../../../database/repositories';
 import { CreateCarsCommand } from '../impl/create-cars.command';
 import { CarsEntity } from '../../../../database/entities/cars.entity';
+import { validateDbError } from '../../../../database/helpers';
 
 @CommandHandler(CreateCarsCommand)
 export class CreateCarsHandler implements ICommandHandler<CreateCarsCommand> {
   constructor(
     @InjectRepository(CarsRepository)
     private readonly carsRepository: CarsRepository,
-    private readonly errorValidationService: ErrorValidationService,
     private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
@@ -25,7 +24,7 @@ export class CreateCarsHandler implements ICommandHandler<CreateCarsCommand> {
     try {
       await cars.save();
     } catch (error) {
-      const errorObject = this.errorValidationService.validateError(error.code);
+      const errorObject = validateDbError(error.code);
 
       this.rpcExceptionService.throwCatchedException(errorObject);
     }

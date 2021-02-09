@@ -2,12 +2,12 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { ErrorValidationService } from '../../../../utils/error-validation';
 import { ActivityRepository } from '../../repositories';
 import { ActivityEntity } from '../../entities';
 import { CreateActivityCommand } from '../impl';
 import { EsService } from '../../../../es/es.service';
 import { ISearchBody } from 'src/es/interfaces';
+import { validateDbError } from '../../../../database/helpers';
 
 @CommandHandler(CreateActivityCommand)
 export class CreateActivityHandler
@@ -15,7 +15,6 @@ export class CreateActivityHandler
   constructor(
     @InjectRepository(ActivityRepository)
     private readonly activityRepository: ActivityRepository,
-    private readonly errorValidationService: ErrorValidationService,
     private readonly rpcExceptionService: RpcExceptionService,
     private readonly esService: EsService,
   ) {}
@@ -28,7 +27,7 @@ export class CreateActivityHandler
     try {
       await activity.save();
     } catch (error) {
-      const errorObject = this.errorValidationService.validateError(error.code);
+      const errorObject = validateDbError(error.code);
 
       this.rpcExceptionService.throwCatchedException(errorObject);
     }

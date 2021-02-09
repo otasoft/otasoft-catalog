@@ -2,10 +2,10 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { RpcExceptionService } from '../../../../utils/exception-handling';
-import { ErrorValidationService } from '../../../../utils/error-validation';
 import { FlightRepository } from '../../../../database/repositories';
 import { CreateFlightCommand } from '../impl';
 import { FlightEntity } from '../../../../database/entities/flight.entity';
+import { validateDbError } from '../../../../database/helpers';
 
 @CommandHandler(CreateFlightCommand)
 export class CreateFlightHandler
@@ -13,7 +13,6 @@ export class CreateFlightHandler
   constructor(
     @InjectRepository(FlightRepository)
     private readonly flightRepository: FlightRepository,
-    private readonly errorValidationService: ErrorValidationService,
     private readonly rpcExceptionService: RpcExceptionService,
   ) {}
 
@@ -26,7 +25,7 @@ export class CreateFlightHandler
     try {
       await flight.save();
     } catch (error) {
-      const errorObject = this.errorValidationService.validateError(error.code);
+      const errorObject = validateDbError(error.code);
 
       this.rpcExceptionService.throwCatchedException(errorObject);
     }
