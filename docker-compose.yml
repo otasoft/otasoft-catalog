@@ -18,8 +18,8 @@ services:
       - MYSQL_REPLICATION_USER=${MYSQL_REPLICATION_USER}
       - MYSQL_REPLICATION_PASSWORD=${MYSQL_REPLICATION_PASSWORD}
     volumes:
-      - ./src/db/replication/master/data:/var/lib/mysql:rw,cached
-      - ./src/db/replication/master/conf:/etc/mysql/conf.d:rw,cached
+      - ./replication/master/data:/var/lib/mysql:rw,cached
+      - ./replication/master/conf:/etc/mysql/conf.d:rw,cached
     networks:
       - db
 
@@ -41,8 +41,8 @@ services:
       - MYSQL_REPLICATION_USER=${MYSQL_REPLICATION_USER}
       - MYSQL_REPLICATION_PASSWORD=${MYSQL_REPLICATION_PASSWORD}
     volumes:
-      - ./src/db/replication/slave/data:/var/lib/mysql:rw,cached
-      - ./src/db/replication/slave/conf:/etc/mysql/conf.d:rw,cached
+      - ./replication/slave/data:/var/lib/mysql:rw,cached
+      - ./replication/slave/conf:/etc/mysql/conf.d:rw,cached
     networks:
       - db
 

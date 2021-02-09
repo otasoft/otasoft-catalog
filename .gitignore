@@ -42,5 +42,5 @@ lerna-debug.log*
 /src/security/secrets/public-cert.crt
 
 # DB
-/src/db/replication/master/data
-/src/db/replication/slave/data
+replication/master/data
+replication/slave/data
