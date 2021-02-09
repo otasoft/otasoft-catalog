@@ -1,19 +1,19 @@
 import { CqrsModule } from '@nestjs/cqrs';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { ActivityService } from './activity.service';
+import { OfferService } from './offer.service';
 
 describe('ActivityService', () => {
-  let service: ActivityService;
+  let service: OfferService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [CqrsModule],
 
-      providers: [ActivityService],
+      providers: [OfferService],
     }).compile();
 
-    service = module.get<ActivityService>(ActivityService);
+    service = module.get<OfferService>(OfferService);
   });
 
   it('should be defined', () => {

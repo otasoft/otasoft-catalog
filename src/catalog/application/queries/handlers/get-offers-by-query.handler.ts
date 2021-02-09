@@ -4,22 +4,22 @@ import { In } from 'typeorm';
 
 import { ElasticSearchService } from '../../../../elastic-search/services';
 import { OfferRepository } from '../../../infrastructure/repositories';
-import { GetActivitiesByQueryQuery } from '../impl';
+import { GetOffersByQueryQuery } from '../impl';
 import { OfferEntity } from '../../../infrastructure/entities';
 import { RpcException } from '@nestjs/microservices';
 
-@QueryHandler(GetActivitiesByQueryQuery)
-export class GetActivitiesByQueryHandler
-  implements IQueryHandler<GetActivitiesByQueryQuery> {
+@QueryHandler(GetOffersByQueryQuery)
+export class GetOffersByQueryHandler
+  implements IQueryHandler<GetOffersByQueryQuery> {
   constructor(
     @InjectRepository(OfferRepository)
     private readonly offerRepository: OfferRepository,
     private readonly elasticSearchService: ElasticSearchService
   ) {}
 
-  async execute(query: GetActivitiesByQueryQuery): Promise<OfferEntity[]> {
+  async execute(query: GetOffersByQueryQuery): Promise<OfferEntity[]> {
     const resultsFromEs = await this.elasticSearchService.searchByText(
-      'activity',
+      'offer',
       query.query,
     );
     const ids = resultsFromEs.map((result) => result.id);
@@ -27,19 +27,19 @@ export class GetActivitiesByQueryHandler
     if (!ids.length)
       throw new RpcException({
         statusCode: 404,
-        errorStatus: `Activities not found by query ${query.query}`,
+        errorStatus: `Offers not found by query ${query.query}`,
       });
 
-    const activities = await this.offerRepository.find({
-      where: { activity_id: In(ids) },
+    const offers = await this.offerRepository.find({
+      where: { offer_id: In(ids) },
     });
 
-    if (!activities.length)
+    if (!offers.length)
       throw new RpcException({
         statusCode: 404,
-        errorStatus: 'Activities found in ES but not found in DB',
+        errorStatus: 'Offers found in ES but not found in DB',
       });
 
-    return activities;
+    return offers;
   }
 }

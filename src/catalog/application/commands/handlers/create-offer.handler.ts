@@ -4,23 +4,23 @@ import { RpcException } from '@nestjs/microservices';
 
 import { OfferRepository } from '../../../infrastructure/repositories';
 import { OfferEntity } from '../../../infrastructure/entities';
-import { CreateActivityCommand } from '../impl';
+import { CreateOfferCommand } from '../impl';
 import { ElasticSearchService } from '../../../../elastic-search/services';
 import { ISearchBody } from '../../../../elastic-search/interfaces';
 import { validateDbError } from '../../../../database/helpers';
 
-@CommandHandler(CreateActivityCommand)
-export class CreateActivityHandler
-  implements ICommandHandler<CreateActivityCommand> {
+@CommandHandler(CreateOfferCommand)
+export class CreateOfferHandler
+  implements ICommandHandler<CreateOfferCommand> {
   constructor(
     @InjectRepository(OfferRepository)
     private readonly offerRepository: OfferRepository,
     private readonly elasticSearchService: ElasticSearchService,
   ) {}
 
-  async execute(command: CreateActivityCommand): Promise<OfferEntity> {
+  async execute(command: CreateOfferCommand): Promise<OfferEntity> {
     const offer: OfferEntity = await this.offerRepository.create({
-      ...command.createActivityDto,
+      ...command.createOfferDto,
     });
 
     try {
@@ -40,7 +40,7 @@ export class CreateActivityHandler
       description: offer.description,
     };
 
-    this.elasticSearchService.indexWithData('activity', searchBody);
+    this.elasticSearchService.indexWithData('offer', searchBody);
 
     return offer;
   }

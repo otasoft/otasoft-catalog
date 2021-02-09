@@ -1,6 +1,6 @@
-export class UpdateActivityDto {
+export class UpdateOfferDto {
   id: number;
-  updateActivityDto: {
+  updateOfferDto: {
     name: string;
     description: string;
   };

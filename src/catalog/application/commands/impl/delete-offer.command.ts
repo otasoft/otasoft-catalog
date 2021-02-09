@@ -1,3 +1,3 @@
-export class GetSingleActivityQuery {
+export class DeleteOfferCommand {
   constructor(public readonly id: number) {}
 }

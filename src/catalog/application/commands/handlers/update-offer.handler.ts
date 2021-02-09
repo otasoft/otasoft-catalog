@@ -5,24 +5,24 @@ import { RpcException } from '@nestjs/microservices';
 import { ElasticSearchService } from '../../../../elastic-search/services';
 import { ISearchBody } from '../../../../elastic-search/interfaces';
 import { OfferRepository } from '../../../infrastructure/repositories';
-import { UpdateActivityCommand } from '../impl';
+import { UpdateOfferCommand } from '../impl';
 import { OfferEntity } from '../../../infrastructure/entities';
 import { validateDbError } from '../../../../database/helpers';
 
-@CommandHandler(UpdateActivityCommand)
-export class UpdateActivityHandler
-  implements ICommandHandler<UpdateActivityCommand> {
+@CommandHandler(UpdateOfferCommand)
+export class UpdateOfferHandler
+  implements ICommandHandler<UpdateOfferCommand> {
   constructor(
     @InjectRepository(OfferRepository)
     private readonly offerRepository: OfferRepository,
     private readonly elasticSearchService: ElasticSearchService,
   ) {}
 
-  async execute(command: UpdateActivityCommand): Promise<OfferEntity> {
+  async execute(command: UpdateOfferCommand): Promise<OfferEntity> {
     try {
-      await this.offerRepository.update(command.updateActivityDto.id, {
-        name: command.updateActivityDto.updateActivityDto.name,
-        description: command.updateActivityDto.updateActivityDto.description,
+      await this.offerRepository.update(command.updateOfferDto.id, {
+        name: command.updateOfferDto.updateOfferDto.name,
+        description: command.updateOfferDto.updateOfferDto.description,
       });
     } catch (error) {
       const { code, message } = validateDbError(error.code);
@@ -33,18 +33,18 @@ export class UpdateActivityHandler
       });
     }
 
-    const updatedActivity = await this.offerRepository.findOne(
-      command.updateActivityDto.id,
+    const updatedOffer = await this.offerRepository.findOne(
+      command.updateOfferDto.id,
     );
 
     const updatedBody: ISearchBody = {
-      id: updatedActivity.offer_id,
-      name: updatedActivity.name,
-      description: updatedActivity.description,
+      id: updatedOffer.offer_id,
+      name: updatedOffer.name,
+      description: updatedOffer.description,
     };
 
-    await this.elasticSearchService.updateRecord('activity', updatedBody);
+    await this.elasticSearchService.updateRecord('offer', updatedBody);
 
-    return updatedActivity;
+    return updatedOffer;
   }
 }

@@ -1,9 +1,9 @@
-import { CreateActivityHandler } from './create-activity.handler';
-import { DeleteActivityHandler } from './delete-activity.handler';
-import { UpdateActivityHandler } from './update-activity.handler';
+import { CreateOfferHandler } from './create-offer.handler';
+import { DeleteOfferHandler } from './delete-offer.handler';
+import { UpdateOfferHandler } from './update-offer.handler';
 
 export const CommandHandlers = [
-  CreateActivityHandler,
-  DeleteActivityHandler,
-  UpdateActivityHandler,
+  CreateOfferHandler,
+  DeleteOfferHandler,
+  UpdateOfferHandler,
 ];

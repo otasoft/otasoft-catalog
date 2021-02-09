@@ -1,1 +1,1 @@
-export * from './activity.controller';
+export * from './offer.controller';

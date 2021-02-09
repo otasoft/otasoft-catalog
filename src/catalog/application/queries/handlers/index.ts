@@ -1,6 +1,6 @@
-import { GetActivitiesByQueryHandler } from './get-activities-by-query.handler';
-import { GetAllActivitiesHandler } from './get-all-activities.handler';
-import { GetSingleActivityHandler } from './get-single-activity.handler';
+import { GetActivitiesByQueryHandler } from './get-offers-by-query.handler';
+import { GetAllActivitiesHandler } from './get-all-offers.handler';
+import { GetSingleActivityHandler } from './get-single-offer.handler';
 
 export const QueryHandlers = [
   GetSingleActivityHandler,

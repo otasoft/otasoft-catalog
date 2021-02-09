@@ -1,4 +1,4 @@
-export class CreateActivityDto {
+export class CreateOfferDto {
   name: string;
   description: string;
 }

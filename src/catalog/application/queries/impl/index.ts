@@ -1,3 +1,3 @@
-export * from './get-single-activity.query';
-export * from './get-all-activities.query';
-export * from './get-activities-by-query.query';
+export * from './get-single-offer.query';
+export * from './get-all-offers.query';
+export * from './get-offers-by-query.query';

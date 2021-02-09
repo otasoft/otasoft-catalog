@@ -5,31 +5,31 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ElasticSearchService } from '../../../../elastic-search/services';
 import { TextResponseModel } from '../../models';
 import { OfferRepository } from '../../../infrastructure/repositories';
-import { DeleteActivityCommand } from '../impl';
+import { DeleteOfferCommand } from '../impl';
 
-@CommandHandler(DeleteActivityCommand)
-export class DeleteActivityHandler
-  implements ICommandHandler<DeleteActivityCommand> {
+@CommandHandler(DeleteOfferCommand)
+export class DeleteOfferHandler
+  implements ICommandHandler<DeleteOfferCommand> {
   constructor(
     @InjectRepository(OfferRepository)
     private readonly offerRepository: OfferRepository,
     private readonly elasticSearchService: ElasticSearchService,
   ) {}
 
-  async execute(command: DeleteActivityCommand): Promise<TextResponseModel> {
+  async execute(command: DeleteOfferCommand): Promise<TextResponseModel> {
     try {
       await this.offerRepository.delete(command.id);
     } catch (error) {
       throw new RpcException({
         statusCode: error.code,
-        errorStatus: 'Cannot remove activity',
+        errorStatus: 'Cannot remove offer',
       });
     }
 
-    await this.elasticSearchService.removeRecordById('activity', command.id);
+    await this.elasticSearchService.removeRecordById('offer', command.id);
 
     return {
-      response: `Activity with id #${command.id} successfuly deleted`,
+      response: `Offer with id #${command.id} successfuly deleted`,
     };
   }
 }
