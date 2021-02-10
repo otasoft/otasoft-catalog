@@ -1,9 +1,8 @@
 {
   "name": "otasoft-catalog",
-  "version": "0.0.1",
+  "version": "0.1.2",
   "description": "Catalog Microservice for Otasoft",
   "author": "Jakub Andrzejewski",
-  "private": true,
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",

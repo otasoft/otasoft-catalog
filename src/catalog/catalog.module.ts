@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { FlightModule } from './flight/flight.module';
-import { CarsModule } from './cars/cars.module';
-import { ActivityModule } from './activity/activity.module';
-import { HotelModule } from './hotel/hotel.module';
+
+import { ApplicationModule } from './application/application.module';
+import { InfrastructureModule } from './infrastructure/infrastructure.module';
+import { DomainModule } from './domain/domain.module';
 
 @Module({
-  imports: [FlightModule, CarsModule, ActivityModule, HotelModule],
+  imports: [ApplicationModule, InfrastructureModule, DomainModule],
 })
 export class CatalogModule {}
