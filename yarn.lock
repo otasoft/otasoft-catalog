@@ -618,14 +618,14 @@
   resolved "https://registry.yarnpkg.com/@nestjs/elasticsearch/-/elasticsearch-7.1.0.tgz#ba77a11d419b9aa542252a83b6490ef8c458fed4"
   integrity sha512-3ixmu9MkTh0DS+LKAKcWHLyf/1DPQTXoy+aVClVI14DJQU208oHR3V0e9klApC+GXCYW+BDhNReh4HRyekjTrw==
 
-"@nestjs/microservices@^7.6.5":
-  version "7.6.5"
-  resolved "https://registry.yarnpkg.com/@nestjs/microservices/-/microservices-7.6.5.tgz#b1faed4ad7ded0801384ece5ab0c53431d1885ad"
-  integrity sha512-QW8V/JC2mgl0GAl09d8BYqiWpZYOMT4zzEMY4V2P/IZH6t/A4R8Wnds4fMRagikzRznVXxB0wmAV6uKxrj19Ww==
+"@nestjs/microservices@^7.6.6":
+  version "7.6.12"
+  resolved "https://registry.yarnpkg.com/@nestjs/microservices/-/microservices-7.6.12.tgz#065d6774a75e893604982e7f9d219faccfbd0107"
+  integrity sha512-kP8Qsrjid6g4PdT0D7i2YEEDeRwGKNroMcbwZrEZjLrXYVUxEhTdvlJ07S996EAKWz8Kclha/TYfSCw+Qwfl/g==
   dependencies:
     iterare "1.2.1"
     json-socket "0.3.0"
-    tslib "2.0.3"
+    tslib "2.1.0"
 
 "@nestjs/platform-express@^7.6.5":
   version "7.6.5"
@@ -6167,6 +6167,11 @@ tslib@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.3.tgz#8e0741ac45fc0c226e58a17bfc3e64b9bc6ca61c"
   integrity sha512-uZtkfKblCEQtZKBF6EBXVZeQNl82yqtDQdv+eck8u7tdPxjLu2/lp5/uPW+um2tpuxINHWy3GhiccY7QgEaVHQ==
+
+tslib@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
+  integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
 
 tslib@^1.13.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.14.1"
